@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ pageTitle or site.title }} · {{ site.subtitle }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  {% if extraCss %}
+  <link rel="stylesheet" href="/css/{{ extraCss }}">
+  {% endif %}
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/">{{ site.title }}</a>
+    <ul class="nav-links">
+      <li><a href="/proyectos/"{% if page.url == "/proyectos/" %} class="active"{% endif %}>Proyectos</a></li>
+      <li><a href="/#portfolio">Portfolio</a></li>
+      <li><a href="/#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  {{ content | safe }}
+
+  <footer>
+    <span class="footer-name">Jorge López</span>
+    <div class="footer-links">
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      <a href="https://instagram.com/{{ site.instagram }}" target="_blank" rel="noopener">@{{ site.instagram }}</a>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

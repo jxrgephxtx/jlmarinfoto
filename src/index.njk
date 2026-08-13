@@ -1,0 +1,83 @@
+---
+layout: base.njk
+extraCss: home.css
+permalink: /
+---
+
+<section class="hero">
+  <div class="hero-bg" style="background-image: url('{{ site.heroBgImage | driveThumb("w1600") }}')"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">{{ site.title }}</h1>
+    <p class="hero-sub">{{ site.subtitle }}</p>
+    <a class="hero-cta" href="#portfolio">{{ site.heroText }}</a>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="section-header">
+    <span class="section-label">Portfolio</span>
+  </div>
+  <div class="portfolio-grid">
+    {% for img in site.portfolioImages %}
+    <div class="item fade-in" style="{{ img.style }}">
+      <img src="{{ img.id | driveThumb('w800') }}" alt="Fotografía gastronómica" loading="lazy">
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<div class="ver-mas">
+  <a href="/proyectos/">Ver más proyectos</a>
+</div>
+
+<section class="primer-plato">
+  <div class="primer-plato-text fade-in">
+    <p class="primer-plato-title">{{ site.primerPlato.title }}</p>
+    <div class="primer-plato-body">
+      {% for p in site.primerPlato.paragraphs %}
+      <p>{{ p }}</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="primer-plato-img">
+    <img src="{{ site.primerPlato.image | driveThumb('w1200') }}" alt="{{ site.primerPlato.title }}">
+  </div>
+</section>
+
+<section id="contacto" class="contacto">
+  <div class="contacto-form fade-in">
+    <h2 class="contacto-title">{{ site.contactoTitle }}</h2>
+    <form name="contacto" method="POST" data-netlify="true">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" required>
+      </div>
+      <div class="field">
+        <label>Número de teléfono</label>
+        <input type="tel" name="telefono">
+      </div>
+      <div class="field">
+        <label>Mensaje</label>
+        <textarea name="mensaje"></textarea>
+      </div>
+      <button class="btn-enviar" type="submit">Enviar</button>
+    </form>
+    <div class="contacto-links">
+      <a class="contacto-link" href="mailto:{{ site.email }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 8 10-8"/></svg>
+        {{ site.email }}
+      </a>
+      <a class="contacto-link" href="https://instagram.com/{{ site.instagram }}" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+        @{{ site.instagram }}
+      </a>
+    </div>
+  </div>
+  <div class="contacto-img">
+    <img src="{{ site.contactoImage | driveThumb('w1200') }}" alt="Jorge López Marín">
+  </div>
+</section>

@@ -1,0 +1,73 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
+locale: "es"
+
+collections:
+  # ── PROYECTOS ──────────────────────────────────────────
+  - name: "proyectos"
+    label: "Proyectos"
+    label_singular: "Proyecto"
+    folder: "src/proyectos"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    filter: { field: "layout", value: "" }
+    fields:
+      - { label: "Nombre del proyecto", name: "title", widget: "string" }
+      - { label: "Orden (menor = aparece primero)", name: "order", widget: "number", value_type: "int", min: 1 }
+      - label: "Imagen de portada (Google Drive ID)"
+        name: "cover"
+        widget: "string"
+        hint: "El ID de Google Drive de la imagen de portada. Lo encuentras en la URL: drive.google.com/...?id=ESTE_ID"
+      - label: "Galería de imágenes (Google Drive IDs)"
+        name: "images"
+        widget: "list"
+        label_singular: "Imagen"
+        hint: "Añade los IDs de Google Drive de las fotos, en el orden que quieras."
+
+  # ── PÁGINA PRINCIPAL ──────────────────────────
+  - name: "configuracion"
+    label: "Página principal"
+    files:
+      - label: "Contenido y configuración"
+        name: "site"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Nombre", name: "title", widget: "string" }
+          - { label: "Subtítulo", name: "subtitle", widget: "string" }
+          - { label: "Email de contacto", name: "email", widget: "string" }
+          - { label: "Usuario de Instagram (sin @)", name: "instagram", widget: "string" }
+          - { label: "Texto del botón hero", name: "heroText", widget: "string" }
+          - label: "Imagen de fondo hero (Drive ID)"
+            name: "heroBgImage"
+            widget: "string"
+          - { label: "Título sección contacto", name: "contactoTitle", widget: "string" }
+          - label: "Imagen sección contacto (Drive ID)"
+            name: "contactoImage"
+            widget: "string"
+          - label: "Sección 'Primer Plato'"
+            name: "primerPlato"
+            widget: "object"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - label: "Párrafos"
+                name: "paragraphs"
+                widget: "list"
+                label_singular: "Párrafo"
+              - label: "Imagen (Drive ID)"
+                name: "image"
+                widget: "string"
+          - label: "Imágenes del portfolio (landing)"
+            name: "portfolioImages"
+            widget: "list"
+            label_singular: "Imagen"
+            summary: "Imagen {{fields.id}}"
+            fields:
+              - { label: "Google Drive ID", name: "id", widget: "string" }
+              - { label: "Posición CSS", name: "style", widget: "string", hint: "left:X%;top:Y%;width:W%;height:H%" }

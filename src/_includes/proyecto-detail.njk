@@ -1,0 +1,22 @@
+---
+layout: base.njk
+extraCss: proyecto.css
+---
+
+<div class="project-header">
+  <a class="back-link" href="/proyectos/">← Proyectos</a>
+  <h1 class="project-title">{{ title }}</h1>
+</div>
+
+{% set cols = images | masonryCols(3) %}
+<div id="grid" class="project-grid">
+  {% for col in cols %}
+  <div class="col">
+    {% for imgId in col %}
+    <div class="item fade-in">
+      <img src="{{ imgId | driveThumb('w800') }}" alt="{{ title }}" loading="lazy">
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>

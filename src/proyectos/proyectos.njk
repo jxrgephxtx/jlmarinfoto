@@ -1,0 +1,21 @@
+---
+layout: base.njk
+pageTitle: Proyectos
+extraCss: proyectos.css
+permalink: /proyectos/
+---
+
+<div class="section-header">
+  <span class="section-label">Proyectos</span>
+</div>
+
+<div class="proyectos-grid">
+  {% for proyecto in collections.proyectos %}
+  <a class="proyecto-item fade-in" href="{{ proyecto.url }}">
+    <img src="{{ proyecto.data.cover | driveThumb('w800') }}" alt="{{ proyecto.data.title }}" loading="lazy">
+    <div class="proyecto-overlay">
+      <span class="proyecto-name">{{ proyecto.data.title }}</span>
+    </div>
+  </a>
+  {% endfor %}
+</div>

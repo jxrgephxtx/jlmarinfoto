@@ -1,0 +1,93 @@
+{
+  "title": "Jorge López Marín",
+  "subtitle": "Fotografía Gastronómica",
+  "email": "jlmarinfoto@gmail.com",
+  "instagram": "Jxrge501",
+  "heroText": "Ver Portfolio",
+  "heroBgImage": "1fFjqtibzf1vqqIO2LjhlbgX1OBijr3Hi",
+  "contactoTitle": "Hablemos.",
+  "contactoImage": "1eVt6Sg4zP_qoTmZfpVYoG3Fde5kQbC_j",
+  "primerPlato": {
+    "title": "El primer plato que sirves",
+    "paragraphs": [
+      "Hoy la decisión de reservar una mesa se toma antes de cruzar la puerta. Se toma en redes, comparando, descartando, eligiendo. Y en ese momento, tu imagen habla por ti.",
+      "No se trata solo de tener presencia. Se trata de que esa presencia transmita realmente lo que hay detrás — la calidad, el cuidado, el nivel de lo que ofreces. Porque el cliente que llega habiendo visto algo que le impresiona, llega de otra manera. Con otra expectativa, otra predisposición, otra percepción del sitio al que va.",
+      "Para los restaurantes que cuidan cada aspecto de lo que hacen — el producto, la sala, el servicio — la imagen es simplemente otra parte de ese cuidado. La que llega primero."
+    ],
+    "image": "1PeVwTWu1hdoRs_DT8wnRXv0AM5K8Is20"
+  },
+  "portfolioImages": [
+    {
+      "id": "19GEqVRQf9FYPpNORGNpTy3QLJUccJtnI",
+      "style": "left:1.9531%;top:0.0000%;width:30.0781%;height:19.9803%"
+    },
+    {
+      "id": "1AV1qY_dwwFzBsBvQY775SOQZub1C6dJ3",
+      "style": "left:1.9531%;top:20.5709%;width:30.0781%;height:21.0630%"
+    },
+    {
+      "id": "1tReGzk3sPl21OiteU0NCPSFI_D_fNiSk",
+      "style": "left:1.9531%;top:42.3228%;width:30.0781%;height:7.2343%"
+    },
+    {
+      "id": "1lx6fcjqaRFFCbib2JnnmdUNb8k2jBiOa",
+      "style": "left:1.9531%;top:50.1476%;width:30.0781%;height:17.7165%"
+    },
+    {
+      "id": "1VNj9gNLoYv6eX8ZyA1TRS0seLmIPIr4O",
+      "style": "left:1.9531%;top:68.7500%;width:30.0781%;height:19.8327%"
+    },
+    {
+      "id": "1rNhhFydv5rY6B1bpwjCtV1PFU2jKoUK1",
+      "style": "left:1.9531%;top:89.5177%;width:30.0781%;height:10.4823%"
+    },
+    {
+      "id": "1KwOhfRgTRUsBnJVhq_ox_YhuNN5mJzTy",
+      "style": "left:33.2031%;top:0.0000%;width:28.1250%;height:19.9803%"
+    },
+    {
+      "id": "15A_01hvscXTncQRshibvfdXhmELEn6eq",
+      "style": "left:33.2031%;top:20.5709%;width:28.1250%;height:9.0551%"
+    },
+    {
+      "id": "17reH2xM10i53LwUjBYUlT3f1J43Lbdul",
+      "style": "left:33.2031%;top:30.1673%;width:28.3203%;height:17.7165%"
+    },
+    {
+      "id": "1I31oNEOysOmzvUfiVnJ8QRnf2kv2tcAh",
+      "style": "left:33.2031%;top:48.5728%;width:28.3203%;height:11.4665%"
+    },
+    {
+      "id": "1fQ4qcTUiOPxnW9QmneBb_nJr_NRNHzNr",
+      "style": "left:33.2031%;top:60.4823%;width:28.3203%;height:21.2598%"
+    },
+    {
+      "id": "1TldhIiAHbbDsyRBrODoWKnOVl15po0OQ",
+      "style": "left:33.2031%;top:82.2835%;width:28.3203%;height:17.7165%"
+    },
+    {
+      "id": "1c9PZD2cRtSBf4pw034OjXS7eHFzVvplS",
+      "style": "left:62.5000%;top:0.0000%;width:35.2539%;height:11.6634%"
+    },
+    {
+      "id": "1Ci-EZpFBc3hhZsnqzT0oUwwPkpVmMUTb",
+      "style": "left:62.5000%;top:12.1555%;width:35.2539%;height:7.8248%"
+    },
+    {
+      "id": "16vhtbZ7hu4zLyKsGCQuKGAYQAre4Lq8s",
+      "style": "left:62.5000%;top:20.5709%;width:35.2539%;height:21.0630%"
+    },
+    {
+      "id": "1MTJatANaKfHct1e91LlhG9Vn9KMQ6gAe",
+      "style": "left:62.5000%;top:42.3228%;width:35.2539%;height:22.7362%"
+    },
+    {
+      "id": "1MKPc5BeJKTzeViyfVaqbv8XkryWmTPxK",
+      "style": "left:62.5000%;top:66.2894%;width:35.2539%;height:10.7776%"
+    },
+    {
+      "id": "1o7umguMhiGuzQIiCzp27AulNx72gLBrI",
+      "style": "left:62.8906%;top:77.7559%;width:34.5703%;height:22.2441%"
+    }
+  ]
+}

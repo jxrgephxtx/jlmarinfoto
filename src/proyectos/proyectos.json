@@ -1,0 +1,5 @@
+{
+  "layout": "proyecto-detail.njk",
+  "tags": "proyectos",
+  "permalink": "/proyectos/{{ page.fileSlug }}/"
+}
