@@ -1,4 +1,996 @@
 <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Jorge López Marín</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.6/Sortable.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --border: #333;
+      --text: #e8e8e8;
+      --text2: #999;
+      --accent: #e84393;
+      --accent2: #fd79a8;
+      --green: #00b894;
+      --red: #d63031;
+      --radius: 10px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    button { cursor: pointer; font-family: inherit; }
+    input, textarea { font-family: inherit; }
+
+    /* ── Login ── */
+    #login-screen {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh; gap: 30px;
+    }
+    #login-screen h1 { font-size: 28px; font-weight: 300; letter-spacing: 2px; }
+    #login-screen .subtitle { color: var(--text2); font-size: 14px; letter-spacing: 1px; }
+    .btn-github {
+      display: flex; align-items: center; gap: 12px;
+      background: #24292e; color: white; border: 1px solid #444;
+      padding: 14px 28px; border-radius: 8px; font-size: 16px;
+      transition: all .2s;
+    }
+    .btn-github:hover { background: #2f363d; border-color: #666; }
+    .btn-github svg { width: 24px; height: 24px; }
+
+    /* ── Header ── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    header .logo { font-size: 16px; font-weight: 600; letter-spacing: 1px; }
+    header .logo span { color: var(--accent); }
+    header nav { display: flex; gap: 4px; }
+    header nav button {
+      background: none; border: none; color: var(--text2); padding: 8px 16px;
+      border-radius: 6px; font-size: 14px; transition: all .2s;
+    }
+    header nav button:hover { color: var(--text); background: var(--surface2); }
+    header nav button.active { color: var(--accent); background: rgba(232,67,147,.1); }
+    .btn-logout { background: none; border: 1px solid var(--border); color: var(--text2); padding: 6px 14px; border-radius: 6px; font-size: 13px; }
+    .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── Shared ── */
+    .view { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
+    .view.active { display: block; }
+    .view h2 { font-size: 22px; font-weight: 400; margin-bottom: 20px; }
+    .btn-primary {
+      background: var(--accent); color: white; border: none;
+      padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500;
+      transition: all .2s;
+    }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 6px; font-size: 13px; transition: all .2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger { background: none; border: 1px solid var(--border); color: var(--text2); padding: 6px 12px; border-radius: 6px; font-size: 12px; }
+    .btn-danger:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── Projects Grid ── */
+    .projects-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .project-card {
+      background: var(--surface); border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+      position: relative;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .project-card .cover {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+      background: var(--surface2);
+    }
+    .project-card .info { padding: 14px; }
+    .project-card .info h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .project-card .info .meta { color: var(--text2); font-size: 12px; }
+    .project-card .drag-handle {
+      position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.7);
+      color: white; border: none; border-radius: 4px; padding: 4px 8px;
+      font-size: 16px; cursor: grab; opacity: 0; transition: opacity .2s;
+    }
+    .project-card:hover .drag-handle { opacity: 1; }
+    .project-card .order-badge {
+      position: absolute; top: 8px; right: 8px; background: var(--accent);
+      color: white; border-radius: 50%; width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+    }
+    .sortable-ghost { opacity: .4; }
+
+    /* ── Project Editor ── */
+    .editor-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .editor-header .btn-back {
+      background: none; border: 1px solid var(--border); color: var(--text2);
+      padding: 8px 12px; border-radius: 6px; font-size: 18px; line-height: 1;
+    }
+    .editor-header .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
+    .form-group input, .form-group textarea {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); padding: 10px 14px; border-radius: 6px; font-size: 14px;
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .cover-section {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: var(--surface); padding: 16px; border-radius: var(--radius);
+      border: 1px solid var(--border); margin-bottom: 20px;
+    }
+    .cover-section img {
+      width: 200px; aspect-ratio: 4/3; object-fit: cover; border-radius: 6px;
+      background: var(--surface2);
+    }
+    .cover-section .cover-info { flex: 1; }
+
+    /* ── Gallery ── */
+    .gallery-section h3 { font-size: 16px; font-weight: 400; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .gallery-section h3 .count { color: var(--text2); font-size: 13px; }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .gallery-item {
+      position: relative; border-radius: 8px; overflow: hidden;
+      border: 2px solid transparent; transition: all .2s; cursor: grab;
+      background: var(--surface2);
+    }
+    .gallery-item:hover { border-color: var(--accent); }
+    .gallery-item img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+    }
+    .gallery-item .remove-btn {
+      position: absolute; top: 6px; right: 6px; background: rgba(214,48,49,.9);
+      color: white; border: none; border-radius: 50%; width: 24px; height: 24px;
+      font-size: 14px; display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .2s;
+    }
+    .gallery-item:hover .remove-btn { opacity: 1; }
+    .gallery-item .img-index {
+      position: absolute; bottom: 6px; left: 6px; background: rgba(0,0,0,.7);
+      color: white; border-radius: 4px; padding: 2px 6px; font-size: 11px;
+    }
+    .add-image-card {
+      display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 4/3; border: 2px dashed var(--border); border-radius: 8px;
+      color: var(--text2); font-size: 32px; cursor: pointer; transition: all .2s;
+    }
+    .add-image-card:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Home Editor ── */
+    .home-sections { display: grid; gap: 24px; }
+    .home-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .home-section h3 { font-size: 16px; margin-bottom: 16px; font-weight: 400; color: var(--accent); }
+    .img-preview-row {
+      display: flex; gap: 16px; align-items: center; margin-top: 8px;
+    }
+    .img-preview-row img {
+      width: 120px; height: 80px; object-fit: cover; border-radius: 6px;
+      background: var(--surface2);
+    }
+    .portfolio-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px; margin-top: 12px;
+    }
+    .portfolio-item {
+      position: relative; border-radius: 6px; overflow: hidden;
+      cursor: grab; background: var(--surface2);
+    }
+    .portfolio-item img {
+      width: 100%; aspect-ratio: 3/2; object-fit: cover; display: block;
+    }
+    .portfolio-item .remove-btn {
+      position: absolute; top: 4px; right: 4px; background: rgba(214,48,49,.9);
+      color: white; border: none; border-radius: 50%; width: 20px; height: 20px;
+      font-size: 12px; display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .2s;
+    }
+    .portfolio-item:hover .remove-btn { opacity: 1; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; padding: 12px 20px;
+      border-radius: 8px; font-size: 14px; z-index: 999;
+      transform: translateY(100px); opacity: 0; transition: all .3s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: var(--green); color: white; }
+    .toast.error { background: var(--red); color: white; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7);
+      display: none; align-items: center; justify-content: center; z-index: 200;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px; width: 440px; max-width: 90vw;
+    }
+    .modal h3 { margin-bottom: 16px; font-weight: 400; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+    /* ── Loading ── */
+    .loading { display: flex; align-items: center; justify-content: center; padding: 60px; color: var(--text2); }
+    .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .6s linear infinite; margin-right: 10px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Save bar ── */
+    .save-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--surface); border-top: 1px solid var(--accent);
+      padding: 12px 24px; display: none; align-items: center; justify-content: flex-end;
+      gap: 12px; z-index: 150;
+    }
+    .save-bar.show { display: flex; }
+    .save-bar .unsaved { color: var(--accent); font-size: 13px; margin-right: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Login Screen ── -->
+  <div id="login-screen">
+    <h1>JORGE LÓPEZ MARÍN</h1>
+    <p class="subtitle">Panel de Administración</p>
+    <button class="btn-github" onclick="login()">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      Iniciar sesión con GitHub
+    </button>
+  </div>
+
+  <!-- ── App Shell ── -->
+  <div id="app" style="display:none">
+    <header>
+      <div class="logo">JLM <span>Admin</span></div>
+      <nav>
+        <button id="nav-projects" class="active" onclick="showView('projects')">Proyectos</button>
+        <button id="nav-home" onclick="showView('home')">Página principal</button>
+      </nav>
+      <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    </header>
+
+    <!-- ── Projects View ── -->
+    <div id="view-projects" class="view active">
+      <div class="projects-header">
+        <h2>Proyectos</h2>
+        <button class="btn-primary" onclick="newProject()">+ Nuevo proyecto</button>
+      </div>
+      <div id="projects-grid" class="projects-grid"></div>
+    </div>
+
+    <!-- ── Project Editor ── -->
+    <div id="view-editor" class="view">
+      <div class="editor-header">
+        <button class="btn-back" onclick="closeEditor()">←</button>
+        <h2 id="editor-title">Editar proyecto</h2>
+        <div style="margin-left:auto;display:flex;gap:10px">
+          <button class="btn-danger" onclick="deleteProject()" id="btn-delete-project">Eliminar proyecto</button>
+          <button class="btn-primary" onclick="saveProject()">Guardar cambios</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre del proyecto</label>
+          <input type="text" id="ed-title" placeholder="Nombre del restaurante...">
+        </div>
+        <div class="form-group">
+          <label>Orden (menor = aparece primero)</label>
+          <input type="number" id="ed-order" min="1" value="1">
+        </div>
+      </div>
+
+      <div class="cover-section">
+        <img id="ed-cover-img" src="" alt="Portada">
+        <div class="cover-info">
+          <div class="form-group">
+            <label>Imagen de portada (Google Drive ID)</label>
+            <input type="text" id="ed-cover" placeholder="ID de Google Drive..." oninput="updateCoverPreview()">
+          </div>
+          <p style="color:var(--text2);font-size:12px;margin-top:4px">Pega el ID de Google Drive. Se encuentra en la URL: drive.google.com/...?id=<b>ESTE_ID</b></p>
+        </div>
+      </div>
+
+      <div class="gallery-section">
+        <h3>Galería <span class="count" id="gallery-count"></span></h3>
+        <p style="color:var(--text2);font-size:13px;margin-bottom:12px">Arrastra para reordenar. Haz clic en × para eliminar.</p>
+        <div id="gallery-grid" class="gallery-grid"></div>
+      </div>
+    </div>
+
+    <!-- ── Home Editor ── -->
+    <div id="view-home" class="view">
+      <div class="projects-header">
+        <h2>Página principal</h2>
+        <button class="btn-primary" onclick="saveHome()">Guardar cambios</button>
+      </div>
+      <div class="home-sections">
+        <div class="home-section">
+          <h3>General</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" id="home-title">
+            </div>
+            <div class="form-group">
+              <label>Subtítulo</label>
+              <input type="text" id="home-subtitle">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email de contacto</label>
+              <input type="text" id="home-email">
+            </div>
+            <div class="form-group">
+              <label>Instagram (sin @)</label>
+              <input type="text" id="home-instagram">
+            </div>
+          </div>
+        </div>
+
+        <div class="home-section">
+          <h3>Hero</h3>
+          <div class="form-group">
+            <label>Texto del botón</label>
+            <input type="text" id="home-heroText">
+          </div>
+          <div class="form-group">
+            <label>Imagen de fondo (Drive ID)</label>
+            <input type="text" id="home-heroBg" oninput="previewHomeImg('home-heroBg','home-heroBg-preview')">
+            <div class="img-preview-row">
+              <img id="home-heroBg-preview" src="">
+            </div>
+          </div>
+        </div>
+
+        <div class="home-section">
+          <h3>Contacto</h3>
+          <div class="form-group">
+            <label>Título</label>
+            <input type="text" id="home-contactoTitle">
+          </div>
+          <div class="form-group">
+            <label>Imagen (Drive ID)</label>
+            <input type="text" id="home-contactoImage" oninput="previewHomeImg('home-contactoImage','home-contacto-preview')">
+            <div class="img-preview-row">
+              <img id="home-contacto-preview" src="">
+            </div>
+          </div>
+        </div>
+
+        <div class="home-section">
+          <h3>Primer Plato</h3>
+          <div class="form-group">
+            <label>Título</label>
+            <input type="text" id="home-ppTitle">
+          </div>
+          <div class="form-group">
+            <label>Párrafos (uno por línea)</label>
+            <textarea id="home-ppParagraphs" rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Imagen (Drive ID)</label>
+            <input type="text" id="home-ppImage" oninput="previewHomeImg('home-ppImage','home-pp-preview')">
+            <div class="img-preview-row">
+              <img id="home-pp-preview" src="">
+            </div>
+          </div>
+        </div>
+
+        <div class="home-section">
+          <h3>Portfolio (imágenes del landing)</h3>
+          <p style="color:var(--text2);font-size:13px;margin-bottom:12px">Arrastra para reordenar. Haz clic en × para eliminar.</p>
+          <div id="portfolio-grid" class="portfolio-grid"></div>
+          <button class="btn-secondary" style="margin-top:12px" onclick="addPortfolioImage()">+ Añadir imagen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Save bar ── -->
+  <div id="save-bar" class="save-bar">
+    <span class="unsaved">Tienes cambios sin guardar</span>
+    <button class="btn-secondary" onclick="discardChanges()">Descartar</button>
+    <button class="btn-primary" id="save-bar-btn" onclick="saveCurrentView()">Guardar</button>
+  </div>
+
+  <!-- ── Modal ── -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal">
+      <h3 id="modal-title">Añadir imagen</h3>
+      <div class="form-group">
+        <label id="modal-label">Google Drive ID</label>
+        <input type="text" id="modal-input" placeholder="Pega el ID de Google Drive...">
+        <div class="img-preview-row" style="margin-top:10px">
+          <img id="modal-preview" src="" style="width:160px;height:100px">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal()">Cancelar</button>
+        <button class="btn-primary" onclick="confirmModal()">Añadir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toast ── -->
+  <div id="toast" class="toast"></div>
+
+<script>
+// ── Config ──
+const REPO = 'jxrgephxtx/jlmarinfoto';
+const BRANCH = 'main';
+const API = 'https://api.github.com';
+const DRIVE_THUMB = (id, sz = 'w400') => `https://drive.google.com/thumbnail?id=${id}&sz=${sz}`;
+
+let token = null;
+let projects = [];
+let siteData = null;
+let siteSha = null;
+let currentProject = null;
+let dirty = false;
+
+// ── Auth ──
+function login() {
+  // Use Netlify OAuth provider
+  const w = 600, h = 700;
+  const left = (screen.width - w) / 2, top = (screen.height - h) / 2;
+  const popup = window.open(
+    `https://api.netlify.com/auth?provider=github&site_id=jlmarinfoto.netlify.app`,
+    'oauth', `width=${w},height=${h},left=${left},top=${top}`
+  );
+
+  window.addEventListener('message', function handler(e) {
+    if (e.data === 'authorizing:github') return;
+    if (e.data && e.data.token) {
+      token = e.data.token;
+      localStorage.setItem('gh_token', token);
+      popup && popup.close();
+      window.removeEventListener('message', handler);
+      initApp();
+    }
+  });
+}
+
+function logout() {
+  token = null;
+  localStorage.removeItem('gh_token');
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+}
+
+// ── Init ──
+async function initApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  showView('projects');
+  await Promise.all([loadProjects(), loadSiteData()]);
+}
+
+// Check stored token
+(async function() {
+  const stored = localStorage.getItem('gh_token');
+  if (stored) {
+    token = stored;
+    // Verify token
+    try {
+      const res = await fetch(`${API}/user`, { headers: { Authorization: `token ${token}` } });
+      if (res.ok) { initApp(); return; }
+    } catch(e) {}
+    localStorage.removeItem('gh_token');
+  }
+})();
+
+// ── GitHub API helpers ──
+async function ghGet(path) {
+  const res = await fetch(`${API}/repos/${REPO}/contents/${path}?ref=${BRANCH}`, {
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+  });
+  if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+  return res.json();
+}
+
+async function ghPut(path, content, sha, message) {
+  const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
+  if (sha) body.sha = sha;
+  const res = await fetch(`${API}/repos/${REPO}/contents/${path}`, {
+    method: 'PUT',
+    headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) { const err = await res.json(); throw new Error(err.message || res.status); }
+  return res.json();
+}
+
+async function ghDelete(path, sha, message) {
+  const res = await fetch(`${API}/repos/${REPO}/contents/${path}`, {
+    method: 'DELETE',
+    headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, sha, branch: BRANCH })
+  });
+  if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
+  return res.json();
+}
+
+// ── Load Projects ──
+async function loadProjects() {
+  const grid = document.getElementById('projects-grid');
+  grid.innerHTML = '<div class="loading" style="grid-column:1/-1"><div class="spinner"></div>Cargando proyectos...</div>';
+
+  try {
+    const files = await ghGet('src/proyectos');
+    const mdFiles = files.filter(f => f.name.endsWith('.md'));
+
+    projects = await Promise.all(mdFiles.map(async f => {
+      const data = await ghGet(`src/proyectos/${f.name}`);
+      const content = decodeURIComponent(escape(atob(data.content)));
+      const parsed = parseFrontmatter(content);
+      return { file: f.name, sha: data.sha, ...parsed };
+    }));
+
+    projects.sort((a, b) => (a.order || 999) - (b.order || 999));
+    renderProjects();
+  } catch (e) {
+    grid.innerHTML = `<div class="loading" style="grid-column:1/-1;color:var(--red)">Error: ${e.message}</div>`;
+  }
+}
+
+function parseFrontmatter(content) {
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return {};
+  const yaml = match[1];
+  const data = {};
+
+  // Simple YAML parser for our known structure
+  let currentKey = null;
+  let inList = false;
+  const lines = yaml.split('\n');
+
+  for (const line of lines) {
+    if (/^(\w+):\s*"?(.*?)"?\s*$/.test(line)) {
+      const [, key, val] = line.match(/^(\w+):\s*"?(.*?)"?\s*$/);
+      if (val === '') {
+        currentKey = key;
+        continue;
+      }
+      data[key] = isNaN(val) ? val : Number(val);
+      inList = false;
+    } else if (/^(\w+):$/.test(line)) {
+      currentKey = line.match(/^(\w+):/)[1];
+      data[currentKey] = [];
+      inList = true;
+    } else if (inList && /^\s+-\s*"?(.*?)"?\s*$/.test(line)) {
+      const val = line.match(/^\s+-\s*"?(.*?)"?\s*$/)[1];
+      if (!Array.isArray(data[currentKey])) data[currentKey] = [];
+      data[currentKey].push(val);
+    }
+  }
+
+  return data;
+}
+
+function projectToMd(proj) {
+  let md = '---\n';
+  md += `title: "${proj.title}"\n`;
+  md += `order: ${proj.order}\n`;
+  md += `cover: "${proj.cover}"\n`;
+  md += `images:\n`;
+  for (const img of (proj.images || [])) {
+    md += `  - "${img}"\n`;
+  }
+  md += '---\n';
+  return md;
+}
+
+// ── Render Projects ──
+function renderProjects() {
+  const grid = document.getElementById('projects-grid');
+  grid.innerHTML = projects.map((p, i) => `
+    <div class="project-card" data-index="${i}" onclick="editProject(${i})">
+      <button class="drag-handle" title="Arrastrar">⠿</button>
+      <span class="order-badge">${p.order || i + 1}</span>
+      <img class="cover" src="${p.cover ? DRIVE_THUMB(p.cover) : ''}"
+           onerror="this.style.background='var(--surface2)'" alt="${p.title || ''}">
+      <div class="info">
+        <h3>${p.title || 'Sin título'}</h3>
+        <span class="meta">${(p.images || []).length} fotos</span>
+      </div>
+    </div>
+  `).join('');
+
+  new Sortable(grid, {
+    animation: 200,
+    handle: '.drag-handle',
+    ghostClass: 'sortable-ghost',
+    onEnd: (evt) => {
+      const item = projects.splice(evt.oldIndex, 1)[0];
+      projects.splice(evt.newIndex, 0, item);
+      // Reassign order values
+      projects.forEach((p, i) => p.order = i + 1);
+      renderProjects();
+      markDirty();
+    }
+  });
+}
+
+// ── Edit Project ──
+function editProject(index) {
+  currentProject = index;
+  const proj = projects[index];
+
+  document.getElementById('ed-title').value = proj.title || '';
+  document.getElementById('ed-order').value = proj.order || 1;
+  document.getElementById('ed-cover').value = proj.cover || '';
+  updateCoverPreview();
+
+  document.getElementById('editor-title').textContent = proj.title || 'Nuevo proyecto';
+  document.getElementById('btn-delete-project').style.display = proj._new ? 'none' : '';
+
+  renderGallery();
+  showView('editor');
+}
+
+function updateCoverPreview() {
+  const id = document.getElementById('ed-cover').value.trim();
+  document.getElementById('ed-cover-img').src = id ? DRIVE_THUMB(id) : '';
+}
+
+function renderGallery() {
+  const proj = projects[currentProject];
+  const images = proj.images || [];
+  const grid = document.getElementById('gallery-grid');
+  const count = document.getElementById('gallery-count');
+
+  count.textContent = `(${images.length} fotos)`;
+
+  grid.innerHTML = images.map((id, i) => `
+    <div class="gallery-item" data-index="${i}">
+      <img src="${DRIVE_THUMB(id)}" onerror="this.style.background='var(--surface2)'" alt="Foto ${i+1}">
+      <button class="remove-btn" onclick="event.stopPropagation();removeGalleryImage(${i})">×</button>
+      <span class="img-index">${i + 1}</span>
+    </div>
+  `).join('') + `
+    <div class="add-image-card" onclick="addGalleryImage()">+</div>
+  `;
+
+  new Sortable(grid, {
+    animation: 200,
+    ghostClass: 'sortable-ghost',
+    filter: '.add-image-card',
+    onEnd: (evt) => {
+      const imgs = projects[currentProject].images;
+      const item = imgs.splice(evt.oldIndex, 1)[0];
+      imgs.splice(evt.newIndex, 0, item);
+      renderGallery();
+      markDirty();
+    }
+  });
+}
+
+function removeGalleryImage(i) {
+  projects[currentProject].images.splice(i, 1);
+  renderGallery();
+  markDirty();
+}
+
+function addGalleryImage() {
+  openModal('Añadir imagen a la galería', 'Google Drive ID', (val) => {
+    if (!val) return;
+    if (!projects[currentProject].images) projects[currentProject].images = [];
+    projects[currentProject].images.push(val);
+    renderGallery();
+    markDirty();
+  });
+}
+
+// ── New / Delete Project ──
+function newProject() {
+  const proj = { title: '', order: projects.length + 1, cover: '', images: [], _new: true, file: '' };
+  projects.push(proj);
+  editProject(projects.length - 1);
+}
+
+async function deleteProject() {
+  const proj = projects[currentProject];
+  if (!confirm(`¿Seguro que quieres eliminar "${proj.title}"?`)) return;
+
+  try {
+    if (proj.file && proj.sha) {
+      await ghDelete(`src/proyectos/${proj.file}`, proj.sha, `Eliminar proyecto: ${proj.title}`);
+    }
+    projects.splice(currentProject, 1);
+    currentProject = null;
+    showView('projects');
+    renderProjects();
+    toast('Proyecto eliminado', 'success');
+  } catch (e) {
+    toast('Error: ' + e.message, 'error');
+  }
+}
+
+// ── Save Project ──
+async function saveProject() {
+  const proj = projects[currentProject];
+  proj.title = document.getElementById('ed-title').value.trim();
+  proj.order = parseInt(document.getElementById('ed-order').value) || 1;
+  proj.cover = document.getElementById('ed-cover').value.trim();
+
+  if (!proj.title) { toast('El nombre es obligatorio', 'error'); return; }
+
+  const slug = proj.file ? proj.file.replace('.md', '') :
+    proj.title.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const filename = slug + '.md';
+  const content = projectToMd(proj);
+
+  try {
+    const btn = document.querySelector('#view-editor .btn-primary');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+
+    const result = await ghPut(`src/proyectos/${filename}`, content, proj.sha || null,
+      proj._new ? `Nuevo proyecto: ${proj.title}` : `Actualizar: ${proj.title}`);
+
+    proj.sha = result.content.sha;
+    proj.file = filename;
+    proj._new = false;
+    dirty = false;
+    updateSaveBar();
+
+    btn.disabled = false; btn.textContent = 'Guardar cambios';
+    document.getElementById('editor-title').textContent = proj.title;
+    toast('Proyecto guardado', 'success');
+  } catch (e) {
+    const btn = document.querySelector('#view-editor .btn-primary');
+    btn.disabled = false; btn.textContent = 'Guardar cambios';
+    toast('Error: ' + e.message, 'error');
+  }
+}
+
+// ── Save All Projects (order) ──
+async function saveAllProjectsOrder() {
+  try {
+    for (const proj of projects) {
+      if (!proj.file || proj._new) continue;
+      const content = projectToMd(proj);
+      const result = await ghPut(`src/proyectos/${proj.file}`, content, proj.sha,
+        `Reordenar: ${proj.title}`);
+      proj.sha = result.content.sha;
+    }
+    dirty = false;
+    updateSaveBar();
+    toast('Orden guardado', 'success');
+  } catch(e) {
+    toast('Error guardando orden: ' + e.message, 'error');
+  }
+}
+
+// ── Load Site Data ──
+async function loadSiteData() {
+  try {
+    const data = await ghGet('src/_data/site.json');
+    const content = decodeURIComponent(escape(atob(data.content)));
+    siteData = JSON.parse(content);
+    siteSha = data.sha;
+    renderHome();
+  } catch(e) {
+    console.error('Error loading site data:', e);
+  }
+}
+
+function renderHome() {
+  if (!siteData) return;
+  document.getElementById('home-title').value = siteData.title || '';
+  document.getElementById('home-subtitle').value = siteData.subtitle || '';
+  document.getElementById('home-email').value = siteData.email || '';
+  document.getElementById('home-instagram').value = siteData.instagram || '';
+  document.getElementById('home-heroText').value = siteData.heroText || '';
+  document.getElementById('home-heroBg').value = siteData.heroBgImage || '';
+  document.getElementById('home-contactoTitle').value = siteData.contactoTitle || '';
+  document.getElementById('home-contactoImage').value = siteData.contactoImage || '';
+
+  const pp = siteData.primerPlato || {};
+  document.getElementById('home-ppTitle').value = pp.title || '';
+  document.getElementById('home-ppParagraphs').value = (pp.paragraphs || []).join('\n\n');
+  document.getElementById('home-ppImage').value = pp.image || '';
+
+  // Previews
+  previewHomeImg('home-heroBg', 'home-heroBg-preview');
+  previewHomeImg('home-contactoImage', 'home-contacto-preview');
+  previewHomeImg('home-ppImage', 'home-pp-preview');
+
+  renderPortfolioImages();
+}
+
+function previewHomeImg(inputId, imgId) {
+  const id = document.getElementById(inputId).value.trim();
+  document.getElementById(imgId).src = id ? DRIVE_THUMB(id) : '';
+}
+
+function renderPortfolioImages() {
+  if (!siteData) return;
+  const grid = document.getElementById('portfolio-grid');
+  const imgs = siteData.portfolioImages || [];
+
+  grid.innerHTML = imgs.map((item, i) => `
+    <div class="portfolio-item" data-index="${i}">
+      <img src="${DRIVE_THUMB(item.id)}" onerror="this.style.background='var(--surface2)'" alt="Portfolio ${i+1}">
+      <button class="remove-btn" onclick="event.stopPropagation();removePortfolioImage(${i})">×</button>
+    </div>
+  `).join('');
+
+  new Sortable(grid, {
+    animation: 200,
+    ghostClass: 'sortable-ghost',
+    onEnd: (evt) => {
+      const item = siteData.portfolioImages.splice(evt.oldIndex, 1)[0];
+      siteData.portfolioImages.splice(evt.newIndex, 0, item);
+      renderPortfolioImages();
+    }
+  });
+}
+
+function removePortfolioImage(i) {
+  siteData.portfolioImages.splice(i, 1);
+  renderPortfolioImages();
+}
+
+function addPortfolioImage() {
+  openModal('Añadir imagen al portfolio', 'Google Drive ID', (val) => {
+    if (!val) return;
+    if (!siteData.portfolioImages) siteData.portfolioImages = [];
+    siteData.portfolioImages.push({
+      id: val,
+      style: 'left:0%;top:0%;width:30%;height:20%'
+    });
+    renderPortfolioImages();
+  });
+}
+
+// ── Save Home ──
+async function saveHome() {
+  siteData.title = document.getElementById('home-title').value;
+  siteData.subtitle = document.getElementById('home-subtitle').value;
+  siteData.email = document.getElementById('home-email').value;
+  siteData.instagram = document.getElementById('home-instagram').value;
+  siteData.heroText = document.getElementById('home-heroText').value;
+  siteData.heroBgImage = document.getElementById('home-heroBg').value;
+  siteData.contactoTitle = document.getElementById('home-contactoTitle').value;
+  siteData.contactoImage = document.getElementById('home-contactoImage').value;
+
+  const paragraphs = document.getElementById('home-ppParagraphs').value
+    .split(/\n\n+/).filter(p => p.trim());
+  siteData.primerPlato = {
+    title: document.getElementById('home-ppTitle').value,
+    paragraphs,
+    image: document.getElementById('home-ppImage').value
+  };
+
+  const content = JSON.stringify(siteData, null, 2) + '\n';
+
+  try {
+    const btn = document.querySelector('#view-home .btn-primary');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+
+    const result = await ghPut('src/_data/site.json', content, siteSha,
+      'Actualizar configuración de la página principal');
+    siteSha = result.content.sha;
+
+    btn.disabled = false; btn.textContent = 'Guardar cambios';
+    toast('Página principal guardada', 'success');
+  } catch(e) {
+    const btn = document.querySelector('#view-home .btn-primary');
+    btn.disabled = false; btn.textContent = 'Guardar cambios';
+    toast('Error: ' + e.message, 'error');
+  }
+}
+
+// ── Navigation ──
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('header nav button').forEach(b => b.classList.remove('active'));
+
+  if (name === 'editor') {
+    document.getElementById('view-editor').classList.add('active');
+  } else if (name === 'home') {
+    document.getElementById('view-home').classList.add('active');
+    document.getElementById('nav-home').classList.add('active');
+  } else {
+    document.getElementById('view-projects').classList.add('active');
+    document.getElementById('nav-projects').classList.add('active');
+  }
+}
+
+function closeEditor() {
+  currentProject = null;
+  showView('projects');
+  renderProjects();
+}
+
+// ── Modal ──
+let modalCallback = null;
+function openModal(title, label, callback) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-label').textContent = label;
+  document.getElementById('modal-input').value = '';
+  document.getElementById('modal-preview').src = '';
+  document.getElementById('modal').classList.add('show');
+  modalCallback = callback;
+
+  document.getElementById('modal-input').oninput = () => {
+    const val = document.getElementById('modal-input').value.trim();
+    document.getElementById('modal-preview').src = val ? DRIVE_THUMB(val) : '';
+  };
+
+  document.getElementById('modal-input').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+  modalCallback = null;
+}
+
+function confirmModal() {
+  const val = document.getElementById('modal-input').value.trim();
+  if (modalCallback) modalCallback(val);
+  closeModal();
+}
+
+// ── Dirty tracking ──
+function markDirty() {
+  dirty = true;
+  updateSaveBar();
+}
+
+function updateSaveBar() {
+  document.getElementById('save-bar').classList.toggle('show', dirty);
+}
+
+function discardChanges() {
+  dirty = false;
+  updateSaveBar();
+  if (currentProject !== null) {
+    loadProjects();
+    closeEditor();
+  }
+}
+
+function saveCurrentView() {
+  if (currentProject !== null) saveProject();
+  else saveAllProjectsOrder();
+}
+
+// ── Toast ──
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
