@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: jxrgephxtx/jlmarinfoto
   branch: main
 
 media_folder: "src/images/uploads"
@@ -8,7 +9,7 @@ public_folder: "/images/uploads"
 locale: "es"
 
 collections:
-  # ── PROYECTOS ──────────────────────────────────────────
+  # ── PROYECTOS ──────────────────────────────────
   - name: "proyectos"
     label: "Proyectos"
     label_singular: "Proyecto"
