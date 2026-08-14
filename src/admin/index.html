@@ -462,9 +462,20 @@ function login() {
   );
 
   window.addEventListener('message', function handler(e) {
-    if (e.data === 'authorizing:github') return;
-    if (e.data && e.data.token) {
-      token = e.data.token;
+    let data = e.data;
+    // Netlify sends: "authorizing:github" then "authorization:github:success:{...}"
+    if (data === 'authorizing:github') return;
+    // Handle string format from Netlify
+    if (typeof data === 'string') {
+      if (data.startsWith('authorization:github:success:')) {
+        try { data = JSON.parse(data.split('authorization:github:success:')[1]); }
+        catch(err) { return; }
+      } else {
+        try { data = JSON.parse(data); } catch(err) { return; }
+      }
+    }
+    if (data && data.token) {
+      token = data.token;
       localStorage.setItem('gh_token', token);
       popup && popup.close();
       window.removeEventListener('message', handler);
@@ -988,17 +999,5 @@ function toast(msg, type = 'success') {
   setTimeout(() => el.classList.remove('show'), 3000);
 }
 </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin · Jorge López Marín</title>
-
-</head>
-<body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
