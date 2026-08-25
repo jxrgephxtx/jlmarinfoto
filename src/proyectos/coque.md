@@ -1,26 +1,6 @@
 ---
 title: "Coque"
 order: 1
-cover: "19YP4rnpNA9_V0wjI4N7ocT84B1hwSvMm"
+cover: "1zoReQrTRJBtEL4dXwu_TOtNRtjwpy2fU"
 images:
-  - "1YaJrUi3axbxT_WxddFy2sAgEMMMcWQ3i"
-  - "17mzld8h8hh5n2__-IRqaFKcW4tX9aWIx"
-  - "1hYME27L7-vREWQTyOQhXpXiduNHy8x0u"
-  - "1vImEILVhnfCxbPIw00e1sFcWi5U4_YZm"
-  - "1eM85n8r1belcMx7x26lgYGp6zVS4aqBV"
-  - "12-Pkji2qbAZifYjvBjMURGtsKHVyh5bC"
-  - "11xVB4zJChUZwLU5znFTHDCF1PmV6Gs5k"
-  - "1oeJ81V3kArgScGK81-lR0bCKi9JO28v-"
-  - "1-8zWnNZFMdOU-YeABxh3sRudFjHYi3fx"
-  - "1WqY0SvqYJTUCD1BXqrQYjOMLO_NPulYT"
-  - "1XlYbfRNVWv9zOoYqsFehxNuWcA0WuBio"
-  - "1-u_SwMo5nmAIv2_GsTkxnHraZaH8AnaT"
-  - "14UAQjSox9i0SWZza10sTC00F5tFei-j0"
-  - "10n9zAfuHhQfTMbvC4JPBdigRahxLdgvY"
-  - "1BNC0I9cFMJ_r-gpdsli4XJK3LrVKHNZg"
-  - "1sqPEQ1Gprlc5j444a0pxY0ZFOcrrAUIT"
-  - "1lZyAAHQpOVeXorIagIPoHzuCjQ6eW3Z6"
-  - "13hFN1RTjyjJ9H5mEbtTrnDfgDrI8qyw-"
-  - "14mXzQ4RGTG5LOJUoEQamRL7xsspGvPdN"
-  - "1y2jOHuXKaU9H8vEW5b-SdDo8z1yOAuF4"
 ---
