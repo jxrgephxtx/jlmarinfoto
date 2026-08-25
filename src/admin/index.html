@@ -268,7 +268,7 @@
   <!-- ── Login Screen ── -->
   <div id="login-screen">
     <h1>JORGE LÃPEZ MARÃN</h1>
-    <p class="subtitle">Panel de AdministraciÃ³n</p>
+    <p class="subtitle">Panel de Administración</p>
     <div class="login-box">
       <div class="form-group">
         <label>Token de GitHub</label>
@@ -492,7 +492,7 @@ async function login() {
 
   try {
     const res = await fetch(`${API}/user`, { headers: { Authorization: `token ${val}` } });
-    if (!res.ok) throw new Error('Token no vÃ¡lido');
+    if (!res.ok) throw new Error('Token no válido');
     // Check repo access
     const repoRes = await fetch(`${API}/repos/${REPO}`, { headers: { Authorization: `token ${val}` } });
     if (!repoRes.ok) throw new Error('Sin acceso al repositorio');
