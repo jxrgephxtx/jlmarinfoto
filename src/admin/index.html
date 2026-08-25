@@ -31,15 +31,31 @@
     }
     #login-screen h1 { font-size: 28px; font-weight: 300; letter-spacing: 2px; }
     #login-screen .subtitle { color: var(--text2); font-size: 14px; letter-spacing: 1px; }
-    .btn-github {
-      display: flex; align-items: center; gap: 12px;
+    .login-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 32px; width: 380px; max-width: 90vw;
+    }
+    .login-box .form-group { margin-bottom: 16px; }
+    .login-box .form-group label { display: block; font-size: 13px; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
+    .login-box .form-group input {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); padding: 12px 14px; border-radius: 6px; font-size: 14px;
+      font-family: monospace;
+    }
+    .login-box .form-group input:focus { outline: none; border-color: var(--accent); }
+    .login-box .login-btn {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
       background: #24292e; color: white; border: 1px solid #444;
-      padding: 14px 28px; border-radius: 8px; font-size: 16px;
+      padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 500;
       transition: all .2s;
     }
-    .btn-github:hover { background: #2f363d; border-color: #666; }
-    .btn-github svg { width: 24px; height: 24px; }
-
+    .login-box .login-btn:hover { background: #2f363d; border-color: #666; }
+    .login-box .login-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .login-box .login-btn svg { width: 20px; height: 20px; }
+    .login-help { color: var(--text2); font-size: 12px; margin-top: 16px; line-height: 1.6; text-align: center; }
+    .login-help a { color: var(--accent); text-decoration: none; }
+    .login-help a:hover { text-decoration: underline; }
+    .login-error { color: var(--red); font-size: 13px; margin-top: 10px; display: none; text-align: center; }
     /* ── Header ── */
     header {
       display: flex; align-items: center; justify-content: space-between;
@@ -251,12 +267,23 @@
 
   <!-- ── Login Screen ── -->
   <div id="login-screen">
-    <h1>JORGE LÓPEZ MARÍN</h1>
-    <p class="subtitle">Panel de Administración</p>
-    <button class="btn-github" onclick="login()">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-      Iniciar sesión con GitHub
-    </button>
+    <h1>JORGE LÃPEZ MARÃN</h1>
+    <p class="subtitle">Panel de AdministraciÃ³n</p>
+    <div class="login-box">
+      <div class="form-group">
+        <label>Token de GitHub</label>
+        <input type="password" id="login-token" placeholder="ghp_xxxxxxxxxxxx..." onkeydown="if(event.key==='Enter')login()">
+      </div>
+      <button class="login-btn" id="login-btn" onclick="login()">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Conectar
+      </button>
+      <p id="login-error" class="login-error"></p>
+      <p class="login-help">
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=jlmarinfoto-admin" target="_blank">Crear token en GitHub</a>
+        (necesita permiso <b>repo</b>)
+      </p>
+    </div>
   </div>
 
   <!-- ── App Shell ── -->
@@ -452,38 +479,34 @@ let currentProject = null;
 let dirty = false;
 
 // ── Auth ──
-function login() {
-  // Use Netlify OAuth provider
-  const w = 600, h = 700;
-  const left = (screen.width - w) / 2, top = (screen.height - h) / 2;
-  const popup = window.open(
-    `https://api.netlify.com/auth?provider=github&site_id=jlmarinfoto.netlify.app`,
-    'oauth', `width=${w},height=${h},left=${left},top=${top}`
-  );
+async function login() {
+  const input = document.getElementById('login-token');
+  const btn = document.getElementById('login-btn');
+  const errEl = document.getElementById('login-error');
+  const val = input.value.trim();
 
-  window.addEventListener('message', function handler(e) {
-    let data = e.data;
-    // Netlify sends: "authorizing:github" then "authorization:github:success:{...}"
-    if (data === 'authorizing:github') return;
-    // Handle string format from Netlify
-    if (typeof data === 'string') {
-      if (data.startsWith('authorization:github:success:')) {
-        try { data = JSON.parse(data.split('authorization:github:success:')[1]); }
-        catch(err) { return; }
-      } else {
-        try { data = JSON.parse(data); } catch(err) { return; }
-      }
-    }
-    if (data && data.token) {
-      token = data.token;
-      localStorage.setItem('gh_token', token);
-      popup && popup.close();
-      window.removeEventListener('message', handler);
-      initApp();
-    }
-  });
+  if (!val) { errEl.textContent = 'Introduce tu token de GitHub'; errEl.style.display = 'block'; return; }
+
+  btn.disabled = true; btn.textContent = 'Verificando...';
+  errEl.style.display = 'none';
+
+  try {
+    const res = await fetch(`${API}/user`, { headers: { Authorization: `token ${val}` } });
+    if (!res.ok) throw new Error('Token no vÃ¡lido');
+    // Check repo access
+    const repoRes = await fetch(`${API}/repos/${REPO}`, { headers: { Authorization: `token ${val}` } });
+    if (!repoRes.ok) throw new Error('Sin acceso al repositorio');
+
+    token = val;
+    localStorage.setItem('gh_token', token);
+    initApp();
+  } catch(e) {
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="white" style="width:20px;height:20px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> Conectar';
+  }
 }
-
 function logout() {
   token = null;
   localStorage.removeItem('gh_token');
