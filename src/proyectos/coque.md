@@ -1,6 +1,6 @@
 ---
 title: "Coque"
 order: 1
-cover: "1zoReQrTRJBtEL4dXwu_TOtNRtjwpy2fU"
+cover: "1zsqwxOqIkYu5JF86gYtaNJLm9xuNXMlV"
 images:
 ---
