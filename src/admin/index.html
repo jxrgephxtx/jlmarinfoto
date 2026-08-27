@@ -606,6 +606,8 @@ function parseFrontmatter(content) {
       const [, key, val] = line.match(/^(\w+):\s*"?(.*?)"?\s*$/);
       if (val === '') {
         currentKey = key;
+        data[key] = [];
+        inList = true;
         continue;
       }
       data[key] = isNaN(val) ? val : Number(val);
