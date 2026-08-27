@@ -19,6 +19,7 @@ module.exports = function(eleventyConfig) {
 
   // Filter: split into balanced columns for masonry
   eleventyConfig.addFilter("masonryCols", function(images, numCols) {
+    if (!images || !Array.isArray(images)) return Array.from({length: numCols || 3}, () => []);
     numCols = numCols || 3;
     const cols = Array.from({length: numCols}, () => []);
     images.forEach((img, i) => {
