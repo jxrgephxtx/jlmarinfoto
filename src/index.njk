@@ -47,7 +47,9 @@ permalink: /
 <section id="contacto" class="contacto">
   <div class="contacto-form fade-in">
     <h2 class="contacto-title">{{ site.contactoTitle }}</h2>
-    <form name="contacto" method="POST" data-netlify="true">
+    <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contacto">
+      <p class="hidden" style="display:none"><label>No rellenar: <input name="bot-field"></label></p>
       <div class="field">
         <label>Nombre</label>
         <input type="text" name="nombre" required>
