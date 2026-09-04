@@ -1,6 +1,6 @@
 ---
 title: "Fuku Sushi"
-order: 4
+order: 5
 cover: "1NZf20E7Y-V4Cn4iNzxiuqioPhoSfgWGc"
 images:
   - "1bVBifz-R6Dhz7eDTs2-hp1kBJ-jItLZg"
