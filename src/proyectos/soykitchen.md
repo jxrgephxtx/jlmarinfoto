@@ -1,6 +1,6 @@
 ---
 title: "SoyKitchen"
-order: 23
+order: 12
 cover: "1CsKHluehWdsmGZlW-Zo8lgUmh9B_EhLt"
 images:
   - "1CsKHluehWdsmGZlW-Zo8lgUmh9B_EhLt"
