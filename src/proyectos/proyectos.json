@@ -1,5 +1,6 @@
 {
   "layout": "proyecto-detail.njk",
   "tags": "proyectos",
-  "permalink": "/proyectos/{{ page.fileSlug }}/"
+  "permalink": "/proyectos/{{ page.fileSlug }}/",
+  "ogType": "article"
 }

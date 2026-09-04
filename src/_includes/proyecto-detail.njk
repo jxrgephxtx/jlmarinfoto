@@ -14,7 +14,7 @@ extraCss: proyecto.css
   <div class="col">
     {% for imgId in col %}
     <div class="item fade-in">
-      <img src="{{ imgId | driveThumb('w800') }}" alt="{{ title }}" loading="lazy">
+      <img src="{{ imgId | driveThumb('w800') }}" alt="Fotografía gastronómica de {{ title }} por Jorge López Marín" loading="lazy">
     </div>
     {% endfor %}
   </div>

@@ -2,6 +2,8 @@
 layout: base.njk
 extraCss: home.css
 permalink: /
+seoTitle: "Jorge López Marín — Fotógrafo Gastronómico en Madrid"
+pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía para restaurantes, hoteles y marcas de alimentación. Imágenes que transmiten la esencia de tu cocina y atraen clientes."
 ---
 
 <section class="hero">
@@ -20,7 +22,7 @@ permalink: /
   <div class="portfolio-grid">
     {% for img in site.portfolioImages %}
     <div class="item fade-in" style="{{ img.style }}">
-      <img src="{{ img.id | driveThumb('w800') }}" alt="Fotografía gastronómica" loading="lazy">
+      <img src="{{ img.id | driveThumb('w800') }}" alt="Fotografía gastronómica profesional en Madrid por Jorge López Marín" loading="lazy">
     </div>
     {% endfor %}
   </div>
@@ -40,7 +42,7 @@ permalink: /
     </div>
   </div>
   <div class="primer-plato-img">
-    <img src="{{ site.primerPlato.image | driveThumb('w1200') }}" alt="{{ site.primerPlato.title }}">
+    <img src="{{ site.primerPlato.image | driveThumb('w1200') }}" alt="Fotografía de plato gastronómico — Jorge López Marín, fotógrafo en Madrid">
   </div>
 </section>
 
@@ -82,6 +84,6 @@ permalink: /
     </div>
   </div>
   <div class="contacto-img">
-    <img src="{{ site.contactoImage | driveThumb('w1200') }}" alt="Jorge López Marín">
+    <img src="{{ site.contactoImage | driveThumb('w1200') }}" alt="Jorge López Marín — Fotógrafo gastronómico profesional en Madrid">
   </div>
 </section>

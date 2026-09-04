@@ -3,6 +3,7 @@ layout: base.njk
 pageTitle: Proyectos
 extraCss: proyectos.css
 permalink: /proyectos/
+pageDescription: "Proyectos de fotografía gastronómica para restaurantes y marcas en Madrid. Portfolio de Jorge López Marín — Coque, Arzábal, Chitón, Ome y más."
 ---
 
 <div class="section-header">
@@ -12,7 +13,7 @@ permalink: /proyectos/
 <div class="proyectos-grid">
   {% for proyecto in collections.proyectos %}
   <a class="proyecto-item fade-in" href="{{ proyecto.url }}">
-    <img src="{{ proyecto.data.cover | driveThumb('w800') }}" alt="{{ proyecto.data.title }}" loading="lazy">
+    <img src="{{ proyecto.data.cover | driveThumb('w800') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} — Jorge López Marín" loading="lazy">
     <div class="proyecto-overlay">
       <span class="proyecto-name">{{ proyecto.data.title }}</span>
     </div>

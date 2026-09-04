@@ -3,15 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ pageTitle or site.title }} · {{ site.subtitle }}</title>
+
+  {#- SEO Title -#}
+  {% if seoTitle %}
+    <title>{{ seoTitle }}</title>
+  {% elif title and title != site.title %}
+    <title>{{ title }} · {{ site.title }} · Fotografía Gastronómica Madrid</title>
+  {% elif pageTitle %}
+    <title>{{ pageTitle }} · {{ site.title }} · Fotografía Gastronómica</title>
+  {% else %}
+    <title>{{ site.title }} · Fotografía Gastronómica en Madrid</title>
+  {% endif %}
+
+  {#- Meta Description -#}
+  <meta name="description" content="{{ pageDescription or site.description }}">
+
+  {#- Canonical URL -#}
+  <link rel="canonical" href="{{ site.siteUrl }}{{ page.url }}">
+
+  {#- Open Graph -#}
+  <meta property="og:type" content="{{ ogType or 'website' }}">
+  <meta property="og:title" content="{{ seoTitle or pageTitle or title or site.title }} · {{ site.subtitle }}">
+  <meta property="og:description" content="{{ pageDescription or site.description }}">
+  <meta property="og:url" content="{{ site.siteUrl }}{{ page.url }}">
+  <meta property="og:image" content="{{ ogImage or site.heroBgImage | driveThumb('w1200') }}">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="{{ site.title }} · {{ site.subtitle }}">
+
+  {#- Twitter Card -#}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ seoTitle or pageTitle or title or site.title }} · {{ site.subtitle }}">
+  <meta name="twitter:description" content="{{ pageDescription or site.description }}">
+  <meta name="twitter:image" content="{{ ogImage or site.heroBgImage | driveThumb('w1200') }}">
+
+  {#- Geo / Location -#}
+  <meta name="geo.region" content="ES-MD">
+  <meta name="geo.placename" content="Madrid">
+
+  {#- Fonts -#}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+  {#- CSS -#}
   <link rel="stylesheet" href="/css/base.css">
   {% if extraCss %}
   <link rel="stylesheet" href="/css/{{ extraCss }}">
   {% endif %}
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  {#- JSON-LD Structured Data -#}
+  {% if page.url == "/" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Jorge López Marín · Fotografía Gastronómica",
+    "description": "{{ site.description }}",
+    "url": "{{ site.siteUrl }}",
+    "image": "{{ site.heroBgImage | driveThumb('w1200') }}",
+    "email": "{{ site.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madrid",
+      "addressRegion": "Comunidad de Madrid",
+      "addressCountry": "ES"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.4168,
+      "longitude": -3.7038
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Madrid" },
+      { "@type": "Country", "name": "España" }
+    ],
+    "sameAs": [
+      "https://instagram.com/{{ site.instagram }}"
+    ],
+    "priceRange": "€€€",
+    "knowsAbout": [
+      "Fotografía gastronómica",
+      "Fotografía para restaurantes",
+      "Fotografía de producto alimentario",
+      "Food photography",
+      "Food styling"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jorge López Marín",
+    "jobTitle": "Fotógrafo Gastronómico",
+    "url": "{{ site.siteUrl }}",
+    "email": "{{ site.email }}",
+    "image": "{{ site.contactoImage | driveThumb('w800') }}",
+    "sameAs": [
+      "https://instagram.com/{{ site.instagram }}"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madrid",
+      "addressCountry": "ES"
+    },
+    "knowsAbout": [
+      "Fotografía gastronómica",
+      "Fotografía para restaurantes",
+      "Food photography",
+      "Food styling"
+    ]
+  }
+  </script>
+  {% endif %}
+
+  {% if title and page.url and page.url.startsWith("/proyectos/") and page.url != "/proyectos/" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "{{ title }} — Fotografía Gastronómica por Jorge López Marín",
+    "description": "Proyecto de fotografía gastronómica para {{ title }} realizado por Jorge López Marín en Madrid.",
+    "url": "{{ site.siteUrl }}{{ page.url }}",
+    "author": {
+      "@type": "Person",
+      "name": "Jorge López Marín",
+      "url": "{{ site.siteUrl }}"
+    },
+    "image": "{{ cover | driveThumb('w1200') }}"
+  }
+  </script>
+  {% endif %}
+
+  {#- Breadcrumb structured data -#}
+  {% if page.url != "/" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Inicio",
+        "item": "{{ site.siteUrl }}/"
+      }
+      {% if page.url.startsWith("/proyectos/") %}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Proyectos",
+        "item": "{{ site.siteUrl }}/proyectos/"
+      }
+      {% endif %}
+      {% if title and page.url != "/proyectos/" %}
+      ,{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{ title }}",
+        "item": "{{ site.siteUrl }}{{ page.url }}"
+      }
+      {% endif %}
+    ]
+  }
+  </script>
+  {% endif %}
 </head>
 <body>
   <nav>
@@ -43,15 +199,6 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
   </script>
 </body>
 </html>

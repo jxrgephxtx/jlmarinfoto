@@ -4,6 +4,24 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("src/images");
 
+  // Computed data: auto-generate pageDescription and ogImage for projects
+  eleventyConfig.addGlobalData("eleventyComputed", {
+    pageDescription: (data) => {
+      if (data.pageDescription) return data.pageDescription;
+      if (data.title && data.tags && data.tags.includes && data.tags.includes("proyectos")) {
+        return `Fotografía gastronómica profesional para ${data.title}. Proyecto realizado por Jorge López Marín, fotógrafo gastronómico en Madrid.`;
+      }
+      return data.site ? data.site.description : "";
+    },
+    ogImage: (data) => {
+      if (data.ogImage) return data.ogImage;
+      if (data.cover) {
+        return `https://drive.google.com/thumbnail?id=${data.cover}&sz=w1200`;
+      }
+      return null;
+    }
+  });
+
   // Create a collection of projects sorted by order
   eleventyConfig.addCollection("proyectos", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/proyectos/*.md")
