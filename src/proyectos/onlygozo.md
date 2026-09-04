@@ -1,6 +1,6 @@
 ---
 title: "Only Gozo"
-order: 8
+order: 9
 cover: "11ohSV2ovuhY49ELp2AvUrPfxol8tMuNQ"
 images:
   - "1bNCnV9H4DqRY6ayZMd0xyTB_WWUNkxpE"
