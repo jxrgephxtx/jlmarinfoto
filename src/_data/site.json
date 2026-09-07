@@ -77,10 +77,6 @@
       "style": "left:62.5000%;top:12.1555%;width:35.2539%;height:7.8248%"
     },
     {
-      "id": "1Rg3HPVT2iExSpSq0kMviLFtx-dQfgFB3",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
       "id": "1MTJatANaKfHct1e91LlhG9Vn9KMQ6gAe",
       "style": "left:62.5000%;top:42.3228%;width:35.2539%;height:22.7362%"
     },
@@ -91,6 +87,10 @@
     {
       "id": "1o7umguMhiGuzQIiCzp27AulNx72gLBrI",
       "style": "left:62.8906%;top:77.7559%;width:34.5703%;height:22.2441%"
+    },
+    {
+      "id": "1Rg3HPVT2iExSpSq0kMviLFtx-dQfgFB3",
+      "style": "left:0%;top:0%;width:30%;height:20%"
     }
   ]
 }
