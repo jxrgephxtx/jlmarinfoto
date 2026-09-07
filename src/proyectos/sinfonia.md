@@ -2,6 +2,8 @@
 title: "Sinfonía"
 order: 15
 cover: "1CYaoJkJkEVZFOhQ_t21QDSzLahIVQNGp"
+description: "Proyecto extenso de fotografía gastronómica para Sinfonía, con 13 imágenes que documentan toda la propuesta del restaurante. Desde los entrantes hasta los postres, pasando por platos principales y detalles de presentación. Un trabajo fotográfico completo pensado para dotar al restaurante de un banco de imágenes profesional que cubra todas sus necesidades de comunicación: carta, web, redes sociales y prensa."
+pageDescription: "Fotografía gastronómica completa para Sinfonía — 13 platos, carta y comunicación. Proyecto por Jorge López Marín, fotógrafo gastronómico en Madrid."
 images:
   - "1VlnzDaWBvePrJ3RCm6GGmwUbEon9Jdtj"
   - "1lj_opkBx0tS_d6E6W399BdMXGVG-90mO"

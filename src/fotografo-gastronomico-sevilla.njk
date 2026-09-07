@@ -1,0 +1,54 @@
+---
+layout: base.njk
+seoTitle: "Fotógrafo Gastronómico en Sevilla | Fotografía para Restaurantes"
+extraCss: landing.css
+permalink: /fotografo-gastronomico-sevilla/
+pageDescription: "Fotógrafo gastronómico profesional en Sevilla. Fotografía de comida para restaurantes, tabernas, hoteles y marcas de alimentación. Jorge López Marín — disponible para proyectos en Sevilla y Andalucía."
+---
+
+<section class="landing-hero">
+  <h1>Fotógrafo Gastronómico en Sevilla</h1>
+  <p class="landing-subtitle">Fotografía profesional de comida para restaurantes, tabernas, hoteles y marcas en Sevilla</p>
+</section>
+
+<section class="landing-content">
+
+  <div class="servicio-section fade-in">
+    <p>Sevilla es tapas, es producto andaluz, es aceite de oliva virgen extra, es cocina con raíz y con presente. Si buscas un <strong>fotógrafo gastronómico en Sevilla</strong> que entienda la tradición culinaria andaluza y sepa darle una imagen contemporánea, puedo ayudarte.</p>
+    <p>Soy Jorge López Marín, <strong>fotógrafo de comida profesional</strong> con base en Madrid. Trabajo habitualmente en toda España y conozco bien la gastronomía andaluza — he fotografiado para Venta del Barón, uno de los aceites de oliva virgen extra más premiados del mundo, con D.O.P. Priego de Córdoba.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Fotografía gastronómica en Sevilla</h2>
+    <p>Desde las tabernas de Triana y Santa Cruz hasta los restaurantes de autor del centro — Sevilla tiene una escena gastronómica con identidad propia que merece ser fotografiada con criterio. Tapas, pescaíto frito, salmorejo, rabo de toro, ibéricos — cada plato sevillano tiene su luz, su ángulo y su forma de transmitir Andalucía en una imagen.</p>
+    <p>Ofrezco sesiones de <strong>fotografía para restaurantes en Sevilla</strong>: carta completa, tapas, platos estrella, carta digital, contenido para redes sociales y fotografía de producto para marcas alimentarias andaluzas.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Servicios en Sevilla y Andalucía</h2>
+    <p>Fotografía de comida para restaurantes y tabernas, fotografía de producto para aceites, vinos y productos andaluces, fotografía para hoteles, contenido para redes sociales y cobertura de ferias y eventos gastronómicos.</p>
+    <p>Me desplazo a Sevilla y a cualquier punto de Andalucía — Córdoba, Málaga, Granada, Cádiz, Jaén — para proyectos de fotografía gastronómica.</p>
+  </div>
+
+</section>
+
+<section class="landing-portfolio">
+  <h2>Portfolio de Fotografía Gastronómica</h2>
+  <div class="landing-grid">
+    {% for proyecto in collections.proyectos | first(6) %}
+    <a class="landing-proyecto" href="{{ proyecto.url }}">
+      <img src="{{ proyecto.data.cover | driveThumb('w600') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} — Jorge López Marín" loading="lazy">
+      <span>{{ proyecto.data.title }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  <div class="ver-mas">
+    <a href="/proyectos/">Ver todos los proyectos</a>
+  </div>
+</section>
+
+<section class="landing-cta">
+  <h2>¿Necesitas fotógrafo gastronómico en Sevilla?</h2>
+  <p>Escríbeme y te envío una propuesta para tu restaurante o marca en Sevilla.</p>
+  <a class="btn-contacto" href="/#contacto">Contactar</a>
+</section>

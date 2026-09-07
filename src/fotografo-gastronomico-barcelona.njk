@@ -1,0 +1,54 @@
+---
+layout: base.njk
+seoTitle: "Fotógrafo Gastronómico en Barcelona | Fotografía para Restaurantes"
+extraCss: landing.css
+permalink: /fotografo-gastronomico-barcelona/
+pageDescription: "Fotógrafo gastronómico profesional en Barcelona. Fotografía de comida para restaurantes, hoteles y marcas de alimentación. Jorge López Marín — disponibilidad inmediata para proyectos en Barcelona."
+---
+
+<section class="landing-hero">
+  <h1>Fotógrafo Gastronómico en Barcelona</h1>
+  <p class="landing-subtitle">Fotografía profesional de comida para restaurantes, hoteles y marcas en Barcelona</p>
+</section>
+
+<section class="landing-content">
+
+  <div class="servicio-section fade-in">
+    <p>Barcelona es una de las ciudades con mayor densidad de restaurantes de calidad de Europa — y la competencia visual es feroz. Si buscas un <strong>fotógrafo gastronómico en Barcelona</strong> que entienda tanto la cocina catalana como la gastronomía internacional, puedo ayudarte.</p>
+    <p>Soy Jorge López Marín, <strong>fotógrafo de comida profesional</strong> con base en Madrid y disponibilidad inmediata para proyectos en Barcelona. Trabajo habitualmente con restaurantes y marcas en toda España, y Barcelona es una de las ciudades donde más proyectos realizo fuera de Madrid.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Fotografía gastronómica en Barcelona</h2>
+    <p>Desde los restaurantes con estrellas Michelin del Eixample hasta los bares de tapas del Born, pasando por los locales de cocina de autor de Gràcia y los mercados gastronómicos de la Barceloneta — cada espacio en Barcelona tiene su propia identidad visual y requiere un enfoque fotográfico adaptado.</p>
+    <p>Ofrezco sesiones de <strong>fotografía para restaurantes en Barcelona</strong>: carta completa, menú degustación, platos estrella, carta digital, contenido para redes sociales, material para plataformas de reservas y fotografía de eventos gastronómicos.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Servicios de fotografía de comida en Barcelona</h2>
+    <p>Fotografía para restaurantes y bares, fotografía de producto alimentario para marcas catalanas, fotografía para hoteles, contenido para redes sociales, cobertura de eventos gastronómicos y personal branding para chefs y profesionales de la hostelería.</p>
+    <p>Me desplazo a Barcelona para cada proyecto y puedo combinar varios encargos en un mismo viaje para optimizar costes si tienes varios locales o necesidades.</p>
+  </div>
+
+</section>
+
+<section class="landing-portfolio">
+  <h2>Portfolio de Fotografía Gastronómica</h2>
+  <div class="landing-grid">
+    {% for proyecto in collections.proyectos | first(6) %}
+    <a class="landing-proyecto" href="{{ proyecto.url }}">
+      <img src="{{ proyecto.data.cover | driveThumb('w600') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} — Jorge López Marín" loading="lazy">
+      <span>{{ proyecto.data.title }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  <div class="ver-mas">
+    <a href="/proyectos/">Ver todos los proyectos</a>
+  </div>
+</section>
+
+<section class="landing-cta">
+  <h2>¿Necesitas fotógrafo gastronómico en Barcelona?</h2>
+  <p>Escríbeme y te envío una propuesta adaptada a tu restaurante o proyecto en Barcelona.</p>
+  <a class="btn-contacto" href="/#contacto">Contactar</a>
+</section>

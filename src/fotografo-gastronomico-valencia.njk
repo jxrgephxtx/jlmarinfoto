@@ -1,0 +1,53 @@
+---
+layout: base.njk
+seoTitle: "Fotógrafo Gastronómico en Valencia | Fotografía para Restaurantes"
+extraCss: landing.css
+permalink: /fotografo-gastronomico-valencia/
+pageDescription: "Fotógrafo gastronómico profesional en Valencia. Fotografía de comida para restaurantes, arrocerías, hoteles y marcas de alimentación. Jorge López Marín — disponible para proyectos en Valencia."
+---
+
+<section class="landing-hero">
+  <h1>Fotógrafo Gastronómico en Valencia</h1>
+  <p class="landing-subtitle">Fotografía profesional de comida para restaurantes, arrocerías, hoteles y marcas en Valencia</p>
+</section>
+
+<section class="landing-content">
+
+  <div class="servicio-section fade-in">
+    <p>Valencia es cuna de la paella, capital del arroz y una escena gastronómica en plena ebullición. Si buscas un <strong>fotógrafo gastronómico en Valencia</strong> que sepa capturar tanto la tradición arrocera como la nueva cocina valenciana, puedo ayudarte.</p>
+    <p>Soy Jorge López Marín, <strong>fotógrafo de comida profesional</strong> con base en Madrid y disponibilidad para proyectos en Valencia. Me desplazo habitualmente para trabajar con restaurantes y marcas en toda España.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Fotografía gastronómica en Valencia</h2>
+    <p>Desde las arrocerías del Cabanyal y la Malvarrosa hasta los restaurantes de autor de Ruzafa y el centro histórico — Valencia tiene una identidad gastronómica potentísima que merece una imagen a la altura. Arroces, fideuás, mariscos, horchata, productos de la huerta valenciana — cada producto tiene su luz y su forma de ser fotografiado.</p>
+    <p>Ofrezco sesiones de <strong>fotografía para restaurantes en Valencia</strong>: carta, menús, platos estrella, carta digital, contenido para redes sociales y material para comunicación.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Servicios para restaurantes y marcas valencianas</h2>
+    <p>Fotografía de comida para restaurantes y arrocerías, fotografía de producto alimentario para marcas de la Comunidad Valenciana, fotografía para hoteles costeros, contenido para redes sociales y cobertura de eventos gastronómicos.</p>
+  </div>
+
+</section>
+
+<section class="landing-portfolio">
+  <h2>Portfolio de Fotografía Gastronómica</h2>
+  <div class="landing-grid">
+    {% for proyecto in collections.proyectos | first(6) %}
+    <a class="landing-proyecto" href="{{ proyecto.url }}">
+      <img src="{{ proyecto.data.cover | driveThumb('w600') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} — Jorge López Marín" loading="lazy">
+      <span>{{ proyecto.data.title }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  <div class="ver-mas">
+    <a href="/proyectos/">Ver todos los proyectos</a>
+  </div>
+</section>
+
+<section class="landing-cta">
+  <h2>¿Necesitas fotógrafo gastronómico en Valencia?</h2>
+  <p>Escríbeme y te envío una propuesta para tu restaurante o marca en Valencia.</p>
+  <a class="btn-contacto" href="/#contacto">Contactar</a>
+</section>

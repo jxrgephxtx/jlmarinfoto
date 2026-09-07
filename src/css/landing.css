@@ -1,0 +1,201 @@
+/* LANDING PAGES — City pages + Services */
+
+nav {
+  position: relative;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.landing-hero {
+  padding: 120px 48px 64px;
+  text-align: center;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.landing-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.landing-subtitle {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Content sections */
+.landing-content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 64px 48px;
+}
+
+.servicio-section {
+  margin-bottom: 48px;
+}
+
+.servicio-section:last-child {
+  margin-bottom: 0;
+}
+
+.servicio-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 300;
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+}
+
+.servicio-section p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+  opacity: 0.85;
+  margin-bottom: 16px;
+}
+
+.servicio-section p:last-child {
+  margin-bottom: 0;
+}
+
+.servicio-section strong {
+  font-weight: 400;
+  color: var(--text);
+  opacity: 1;
+}
+
+/* Portfolio grid on landing pages */
+.landing-portfolio {
+  border-top: 0.5px solid var(--line);
+  padding: 64px 48px;
+}
+
+.landing-portfolio h2 {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+.landing-proyecto {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  background: #111;
+}
+
+.landing-proyecto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.landing-proyecto:hover img {
+  transform: scale(1.05);
+}
+
+.landing-proyecto span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.landing-proyecto:hover span {
+  opacity: 1;
+}
+
+.ver-mas {
+  padding: 32px 48px;
+  text-align: left;
+}
+
+.ver-mas a {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--muted);
+  padding-bottom: 2px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.ver-mas a:hover { color: var(--text); border-color: var(--text); }
+
+/* CTA section */
+.landing-cta {
+  border-top: 0.5px solid var(--line);
+  padding: 80px 48px;
+  text-align: center;
+}
+
+.landing-cta h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+.landing-cta p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.btn-contacto {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  border: 0.5px solid var(--muted);
+  padding: 14px 40px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.btn-contacto:hover {
+  border-color: var(--text);
+  background: rgba(237,232,223,0.05);
+}
+
+@media (max-width: 768px) {
+  .landing-hero { padding: 80px 24px 48px; }
+  .landing-content { padding: 40px 24px; }
+  .landing-portfolio { padding: 40px 24px; }
+  .landing-grid { grid-template-columns: repeat(2, 1fr); }
+  .landing-proyecto span { opacity: 1; }
+  .landing-cta { padding: 48px 24px; }
+  .ver-mas { padding: 24px; }
+}
+
+@media (max-width: 480px) {
+  .landing-grid { grid-template-columns: 1fr; }
+}

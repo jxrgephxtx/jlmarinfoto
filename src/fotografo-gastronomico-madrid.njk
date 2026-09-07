@@ -1,0 +1,65 @@
+---
+layout: base.njk
+seoTitle: "Fotógrafo Gastronómico en Madrid | Fotografía de Comida Profesional"
+extraCss: landing.css
+permalink: /fotografo-gastronomico-madrid/
+pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía de comida para restaurantes, hoteles y marcas. Más de 20 proyectos: Coque, Arzábal, SoyKitchen, Chitón. Jorge López Marín."
+---
+
+<section class="landing-hero">
+  <h1>Fotógrafo Gastronómico en Madrid</h1>
+  <p class="landing-subtitle">Fotografía profesional de comida para restaurantes, hoteles y marcas de alimentación</p>
+</section>
+
+<section class="landing-content">
+
+  <div class="servicio-section fade-in">
+    <p>Si buscas un <strong>fotógrafo gastronómico en Madrid</strong>, has llegado al sitio. Soy Jorge López Marín y llevo años dedicado exclusivamente a la <strong>fotografía de comida profesional</strong> — trabajando con restaurantes, hoteles, bodegas y marcas de alimentación que entienden que la imagen de su cocina es tan importante como la cocina misma.</p>
+
+    <p>Madrid es una de las capitales gastronómicas de Europa, y su escena culinaria exige un nivel fotográfico que esté a la altura. He tenido el privilegio de trabajar con algunos de los restaurantes y marcas más destacados de la ciudad:</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Proyectos destacados en Madrid</h2>
+    <p><strong>Coque</strong> — Restaurante con 2 estrellas Michelin de los hermanos Sandoval en Chamberí. Fotografía del menú degustación y platos de autor. Alta cocina madrileña con técnica vanguardista.</p>
+    <p><strong>Arzábal</strong> — Uno de los restaurantes de referencia de Madrid, junto al Retiro y en el Bernabéu. Cocina española de mercado, tapas generosas y producto de temporada.</p>
+    <p><strong>SoyKitchen</strong> — Cocina asiática de fusión reconocida con Sol Repsol y presencia en la Guía Michelin. Platos vibrantes con influencias de toda Asia.</p>
+    <p><strong>Chitón</strong> — El restaurante y club social de Salesas. Cocina castiza contemporánea, cócteles de autor y una estética que mezcla gastronomía y diseño.</p>
+    <p><strong>Ōme</strong> — El primer omakase mexicano de Madrid. Fusión de cocina mexicana y técnica japonesa en formato de barra.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>¿Por qué contratar un fotógrafo gastronómico profesional?</h2>
+    <p>La fotografía del móvil ha mejorado mucho, pero la diferencia entre una foto de móvil y una fotografía gastronómica profesional sigue siendo enorme — y tus clientes la notan. Una imagen profesional transmite calidad, cuidado y seriedad. Dice: "aquí se hacen las cosas bien".</p>
+    <p>Un <strong>fotógrafo de comida profesional en Madrid</strong> entiende la luz, la composición, los ángulos que hacen que un plato se vea apetecible, y el estilismo mínimo que resalta el producto sin disfrazarlo. Y lo más importante: entiende que las fotos no son para decorar tu feed — son para vender mesas.</p>
+  </div>
+
+  <div class="servicio-section fade-in">
+    <h2>Cómo trabajo</h2>
+    <p>Cada proyecto empieza con una conversación. Necesito entender tu cocina, tu público y cómo vas a usar las imágenes — no es lo mismo fotografiar para una carta Michelin que para el feed de Instagram de un gastrobar.</p>
+    <p>Trabajo preferentemente con <strong>luz natural</strong> y en el propio restaurante, aprovechando el espacio y la atmósfera del local. El resultado: imágenes que no solo muestran tus platos, sino que transmiten la experiencia de comer en tu restaurante.</p>
+    <p>Entrego las imágenes editadas, optimizadas y listas para usar en los formatos que necesites: web, redes sociales, carta impresa, plataformas de reservas o prensa.</p>
+  </div>
+
+</section>
+
+<section class="landing-portfolio">
+  <h2>Portfolio de Fotografía Gastronómica en Madrid</h2>
+  <div class="landing-grid">
+    {% for proyecto in collections.proyectos | first(6) %}
+    <a class="landing-proyecto" href="{{ proyecto.url }}">
+      <img src="{{ proyecto.data.cover | driveThumb('w600') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} en Madrid — Jorge López Marín" loading="lazy">
+      <span>{{ proyecto.data.title }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  <div class="ver-mas">
+    <a href="/proyectos/">Ver todos los proyectos</a>
+  </div>
+</section>
+
+<section class="landing-cta">
+  <h2>¿Buscas fotógrafo gastronómico en Madrid?</h2>
+  <p>Cuéntame sobre tu restaurante o proyecto y te envío una propuesta personalizada.</p>
+  <a class="btn-contacto" href="/#contacto">Contactar</a>
+</section>

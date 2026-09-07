@@ -2,6 +2,8 @@
 title: "Chitón"
 order: 4
 cover: "1NA9FzSl7Qj_Ie4l3rsC9iQ3N03qOFgd_"
+description: "Fotografía gastronómica para Chitón, el restaurante y club social del barrio de Salesas en Madrid. Un espacio donde la cocina castiza se presenta con estética contemporánea y una atmósfera que mezcla gastronomía, diseño y vida nocturna. Las imágenes capturan tanto la propuesta culinaria como la personalidad única del local — cócteles de autor, platos con raíz madrileña y una puesta en escena cuidada al detalle."
+pageDescription: "Fotografía gastronómica y de interiorismo para Chitón, restaurante y club en Salesas, Madrid. Proyecto de Jorge López Marín, fotógrafo gastronómico."
 images:
   - "1LZdC8hbW0f7Mxl-FB4KepkGoS7GtjBKc"
   - "1PwhHtXBOIYpSApcbTmJm-8P6vHLC0Vpo"

@@ -46,6 +46,29 @@ module.exports = function(eleventyConfig) {
     return cols;
   });
 
+  // Filter: reject a project by slug (for related projects)
+  eleventyConfig.addFilter("rejectProject", function(projects, slug) {
+    if (!projects) return [];
+    return projects.filter(p => p.page.fileSlug !== slug);
+  });
+
+  // Filter: shuffle array (for random related projects)
+  eleventyConfig.addFilter("shuffle", function(arr) {
+    if (!arr) return [];
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  });
+
+  // Filter: take first N items
+  eleventyConfig.addFilter("first", function(arr, n) {
+    if (!arr) return [];
+    return arr.slice(0, n || 3);
+  });
+
   return {
     dir: {
       input: "src",

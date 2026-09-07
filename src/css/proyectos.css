@@ -64,10 +64,24 @@ nav {
   color: var(--text);
 }
 
+/* Intro text */
+.proyectos-intro {
+  max-width: 780px;
+  padding: 0 48px 40px;
+}
+
+.proyectos-intro p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+  opacity: 0.8;
+}
+
 @media (max-width: 768px) {
   .section-header { padding: 32px 20px 24px; }
   .proyectos-grid { grid-template-columns: repeat(2, 1fr); }
   .proyecto-overlay { opacity: 1; }
+  .proyectos-intro { padding: 0 24px 28px; }
 }
 
 @media (max-width: 480px) {

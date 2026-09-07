@@ -2,6 +2,8 @@
 title: "Pipilacha"
 order: 7
 cover: "16g-4DFiwoF2iWx2rMw0fdDT0Y9xYyjri"
+description: "Sesión completa de fotografía gastronómica para Pipilacha: carta, cócteles y ambiente del local. Un proyecto extenso con 17 imágenes que documenta toda la propuesta del restaurante — desde los platos principales hasta los detalles de presentación y la atmósfera del espacio. Fotografía que sirve tanto para carta digital como para redes sociales y material de comunicación."
+pageDescription: "Fotografía gastronómica completa para Pipilacha: carta, cócteles y ambiente. Proyecto por Jorge López Marín, fotógrafo de restaurantes en Madrid."
 images:
   - "1y0lF_2P3rYlTukVuWeufFyqvAryNc-3s"
   - "1hR6rreZJOnUPlB811t5sojy1T-elIfDe"

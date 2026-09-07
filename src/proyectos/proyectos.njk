@@ -1,19 +1,23 @@
 ---
 layout: base.njk
-pageTitle: Proyectos
+pageTitle: Proyectos de Fotografía Gastronómica
 extraCss: proyectos.css
 permalink: /proyectos/
-pageDescription: "Proyectos de fotografía gastronómica para restaurantes y marcas en Madrid. Portfolio de Jorge López Marín — Coque, Arzábal, Chitón, Ome y más."
+pageDescription: "Proyectos de fotografía gastronómica para restaurantes, hoteles y marcas en Madrid y toda España. Portfolio de Jorge López Marín: Coque (2 estrellas Michelin), Arzábal, SoyKitchen, Chitón, Martín Códax, Venta del Barón y más."
 ---
 
 <div class="section-header">
-  <span class="section-label">Proyectos</span>
+  <h1 class="section-label">Proyectos de Fotografía Gastronómica</h1>
+</div>
+
+<div class="proyectos-intro fade-in">
+  <p>Más de 20 proyectos de fotografía gastronómica para restaurantes, bodegas, marcas de alimentación y espacios gastronómicos en Madrid y toda España. Desde la alta cocina de Coque con dos estrellas Michelin hasta la fotografía de producto artesanal para denominaciones de origen — cada proyecto es único porque cada cocina lo es.</p>
 </div>
 
 <div class="proyectos-grid">
   {% for proyecto in collections.proyectos %}
   <a class="proyecto-item fade-in" href="{{ proyecto.url }}">
-    <img src="{{ proyecto.data.cover | driveThumb('w800') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} — Jorge López Marín" loading="lazy">
+    <img src="{{ proyecto.data.cover | driveThumb('w800') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} — proyecto de Jorge López Marín, fotógrafo en Madrid" loading="lazy">
     <div class="proyecto-overlay">
       <span class="proyecto-name">{{ proyecto.data.title }}</span>
     </div>

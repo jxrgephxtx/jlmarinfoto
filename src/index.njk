@@ -2,53 +2,104 @@
 layout: base.njk
 extraCss: home.css
 permalink: /
-seoTitle: "Jorge López Marín — Fotógrafo Gastronómico en Madrid"
-pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía para restaurantes, hoteles y marcas de alimentación. Imágenes que transmiten la esencia de tu cocina y atraen clientes."
+seoTitle: "Jorge López Marín — Fotógrafo Gastronómico en Madrid | Fotografía para Restaurantes"
+pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía para restaurantes, hoteles y marcas de alimentación en toda España. Coque, Arzábal, SoyKitchen, Martín Códax y más de 20 proyectos. Imágenes que transmiten la esencia de tu cocina y atraen clientes."
 ---
 
 <section class="hero">
   <div class="hero-bg" style="background-image: url('{{ site.heroBgImage | driveThumb("w1600") }}')"></div>
   <div class="hero-content">
-    <h1 class="hero-title">{{ site.title }}</h1>
-    <p class="hero-sub">{{ site.subtitle }}</p>
-    <a class="hero-cta" href="#portfolio">{{ site.heroText }}</a>
+    <h1 class="hero-title">Fotógrafo Gastronómico en Madrid</h1>
+    <p class="hero-sub">Jorge López Marín · Fotografía para restaurantes, hoteles y marcas</p>
+    <a class="hero-cta" href="#portfolio">Ver Portfolio</a>
   </div>
 </section>
 
 <section id="portfolio">
   <div class="section-header">
-    <span class="section-label">Portfolio</span>
+    <h2 class="section-label">Portfolio de Fotografía Gastronómica</h2>
   </div>
   <div class="portfolio-grid">
     {% for img in site.portfolioImages %}
     <div class="item fade-in" style="{{ img.style }}">
-      <img src="{{ img.id | driveThumb('w800') }}" alt="Fotografía gastronómica profesional en Madrid por Jorge López Marín" loading="lazy">
+      <img src="{{ img.id | driveThumb('w800') }}" alt="{{ img.alt or 'Fotografía gastronómica profesional — plato de restaurante en Madrid por Jorge López Marín' }}" loading="lazy">
     </div>
     {% endfor %}
   </div>
 </section>
 
 <div class="ver-mas">
-  <a href="/proyectos/">Ver más proyectos</a>
+  <a href="/proyectos/">Ver todos los proyectos</a>
 </div>
 
 <section class="primer-plato">
   <div class="primer-plato-text fade-in">
-    <p class="primer-plato-title">{{ site.primerPlato.title }}</p>
+    <h2 class="primer-plato-title">El primer plato que sirves</h2>
     <div class="primer-plato-body">
-      {% for p in site.primerPlato.paragraphs %}
-      <p>{{ p }}</p>
-      {% endfor %}
+      <p>Hoy la decisión de reservar una mesa se toma antes de cruzar la puerta. Se toma en redes, comparando, descartando, eligiendo. Y en ese momento, tu imagen habla por ti.</p>
+      <p>No se trata solo de tener presencia. Se trata de que esa presencia transmita realmente lo que hay detrás — la calidad, el cuidado, el nivel de lo que ofreces. Porque el cliente que llega habiendo visto algo que le impresiona, llega de otra manera. Con otra expectativa, otra predisposición, otra percepción del sitio al que va.</p>
+      <p>Para los restaurantes que cuidan cada aspecto de lo que hacen — el producto, la sala, el servicio — la imagen es simplemente otra parte de ese cuidado. La que llega primero.</p>
     </div>
   </div>
   <div class="primer-plato-img">
-    <img src="{{ site.primerPlato.image | driveThumb('w1200') }}" alt="Fotografía de plato gastronómico — Jorge López Marín, fotógrafo en Madrid">
+    <img src="{{ site.primerPlato.image | driveThumb('w1200') }}" alt="Plato gastronómico fotografiado por Jorge López Marín — fotografía profesional de comida en Madrid">
+  </div>
+</section>
+
+<section class="servicios-home">
+  <div class="section-header">
+    <h2 class="section-label">Servicios de Fotografía Gastronómica</h2>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-item fade-in">
+      <h3>Fotografía para Restaurantes</h3>
+      <p>Sesiones de fotografía gastronómica para carta, menú degustación, carta digital y plataformas de reservas. Cada plato fotografiado con la luz y la composición que merece — imágenes que hacen que el cliente quiera sentarse a tu mesa antes de leer la carta.</p>
+    </div>
+    <div class="servicio-item fade-in">
+      <h3>Fotografía para Hoteles</h3>
+      <p>Fotografía gastronómica para la oferta culinaria de hoteles: restaurantes, room service, buffets y eventos. Imágenes profesionales que elevan la propuesta gastronómica de tu establecimiento en booking engines, web propia y materiales de comunicación.</p>
+    </div>
+    <div class="servicio-item fade-in">
+      <h3>Fotografía de Producto Alimentario</h3>
+      <p>Fotografía de producto para marcas de alimentación, bodegas, denominaciones de origen y productores artesanales. Desde una botella de aceite de oliva virgen extra hasta una colección de vinos — imágenes que venden sin necesidad de palabras.</p>
+    </div>
+    <div class="servicio-item fade-in">
+      <h3>Contenido para Redes Sociales</h3>
+      <p>Fotografía gastronómica optimizada para Instagram, TikTok y redes sociales. Contenido visual profesional que destaca en el feed, genera engagement y convierte seguidores en clientes. Sesiones pensadas para producir un banco de imágenes que alimente tus publicaciones durante semanas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="clientes-home">
+  <div class="section-header">
+    <h2 class="section-label">Clientes</h2>
+  </div>
+  <div class="clientes-body fade-in">
+    <p>He tenido el privilegio de trabajar con algunos de los restaurantes y marcas más destacados de la gastronomía española: <strong>Coque</strong> (2 estrellas Michelin), <strong>Arzábal</strong>, <strong>SoyKitchen</strong> (Sol Repsol, Guía Michelin), <strong>Chitón</strong>, <strong>Ōme</strong>, <strong>Bodegas Martín Códax</strong> (D.O. Rías Baixas), <strong>Venta del Barón</strong> (D.O.P. Priego de Córdoba) y más de 20 proyectos que abarcan desde alta cocina hasta producto artesanal.</p>
+    <p>Trabajo en Madrid y me desplazo a cualquier punto de España para proyectos de fotografía gastronómica: Barcelona, Valencia, Sevilla, Bilbao, Málaga, San Sebastián y donde la cocina lo merezca.</p>
+  </div>
+</section>
+
+<section class="sobre-mi-home">
+  <div class="section-header">
+    <h2 class="section-label">Sobre mí</h2>
+  </div>
+  <div class="sobre-mi-content fade-in">
+    <div class="sobre-mi-text">
+      <p>Soy Jorge López Marín, fotógrafo gastronómico profesional en Madrid. Me especializo en fotografía para restaurantes, hoteles y marcas de alimentación — imágenes que capturan la esencia de lo que cocinas y la transmiten a quien todavía no te conoce.</p>
+      <p>Mi enfoque es directo: entender tu cocina, respetar tu producto y crear fotografías que trabajen para ti. Sin artificios, sin filtros excesivos, sin estilismo que disfrace. La mejor fotografía gastronómica es la que hace justicia al plato que tienes delante.</p>
+      <p>Cada proyecto empieza con una conversación sobre lo que necesitas y cómo lo vas a usar. No es lo mismo fotografiar para una carta Michelin que para el feed de Instagram — y las imágenes tienen que funcionar donde van a vivir.</p>
+    </div>
+    <div class="sobre-mi-img">
+      <img src="{{ site.contactoImage | driveThumb('w800') }}" alt="Jorge López Marín — fotógrafo gastronómico profesional en Madrid" loading="lazy">
+    </div>
   </div>
 </section>
 
 <section id="contacto" class="contacto">
   <div class="contacto-form fade-in">
-    <h2 class="contacto-title">{{ site.contactoTitle }}</h2>
+    <h2 class="contacto-title">Hablemos de tu proyecto</h2>
+    <p class="contacto-intro">¿Necesitas fotografía gastronómica para tu restaurante, hotel o marca? Cuéntame qué tienes en mente y te respondo en menos de 24 horas.</p>
     <form action="https://formsubmit.co/jlmarinfoto@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="Nuevo mensaje desde jlmarinfoto.com">
       <input type="hidden" name="_next" value="https://jlmarinfoto.com/#contacto">
@@ -68,9 +119,9 @@ pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía pa
       </div>
       <div class="field">
         <label>Mensaje</label>
-        <textarea name="mensaje"></textarea>
+        <textarea name="mensaje" placeholder="Cuéntame sobre tu restaurante o proyecto..."></textarea>
       </div>
-      <button class="btn-enviar" type="submit">Enviar</button>
+      <button class="btn-enviar" type="submit">Enviar mensaje</button>
     </form>
     <div class="contacto-links">
       <a class="contacto-link" href="mailto:{{ site.email }}">
@@ -84,6 +135,6 @@ pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía pa
     </div>
   </div>
   <div class="contacto-img">
-    <img src="{{ site.contactoImage | driveThumb('w1200') }}" alt="Jorge López Marín — Fotógrafo gastronómico profesional en Madrid">
+    <img src="{{ site.contactoImage | driveThumb('w1200') }}" alt="Contactar con Jorge López Marín — fotógrafo gastronómico en Madrid para restaurantes y hoteles">
   </div>
 </section>

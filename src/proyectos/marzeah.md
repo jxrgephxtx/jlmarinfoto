@@ -2,6 +2,8 @@
 title: "Marzeah"
 order: 22
 cover: "1x85hBriJ9fZ-XQvDO-yDfTbcq3pWndqS"
+description: "Fotografía gastronómica para Marzeah, un proyecto que documenta una propuesta gastronómica mediterránea con influencias de Oriente Medio. Ocho imágenes que capturan platos con ingredientes de raíz mediterránea — especias, aceite de oliva, verduras de temporada — presentados con una estética cuidada que respeta la tradición culinaria y la moderniza visualmente."
+pageDescription: "Fotografía gastronómica para Marzeah — cocina mediterránea con influencias de Oriente Medio. Proyecto por Jorge López Marín, fotógrafo en Madrid."
 images:
   - "1fg-6gxfuDgOGUhg6l73eIRiYdRKBmGjp"
   - "1qoY3IWt-q7ECfvWWQ3qznmoKq9r2aBLC"

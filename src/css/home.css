@@ -249,6 +249,111 @@
 .contacto-img { overflow: hidden; }
 .contacto-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* SERVICIOS HOME */
+.servicios-home {
+  border-top: 0.5px solid var(--line);
+}
+
+.servicios-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.servicio-item {
+  padding: 48px;
+  border-bottom: 0.5px solid var(--line);
+  border-right: 0.5px solid var(--line);
+}
+
+.servicio-item:nth-child(2n) {
+  border-right: none;
+}
+
+.servicio-item h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 300;
+  margin-bottom: 16px;
+  letter-spacing: 0.01em;
+}
+
+.servicio-item p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text);
+  opacity: 0.75;
+}
+
+/* CLIENTES HOME */
+.clientes-home {
+  border-top: 0.5px solid var(--line);
+}
+
+.clientes-body {
+  padding: 0 48px 64px;
+}
+
+.clientes-body p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+  opacity: 0.85;
+  max-width: 780px;
+  margin-bottom: 16px;
+}
+
+.clientes-body p:last-child { margin-bottom: 0; }
+
+.clientes-body strong {
+  font-weight: 400;
+  opacity: 1;
+}
+
+/* SOBRE MI HOME */
+.sobre-mi-home {
+  border-top: 0.5px solid var(--line);
+}
+
+.sobre-mi-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.sobre-mi-text {
+  padding: 48px;
+}
+
+.sobre-mi-text p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+  opacity: 0.85;
+  margin-bottom: 16px;
+}
+
+.sobre-mi-text p:last-child { margin-bottom: 0; }
+
+.sobre-mi-img {
+  overflow: hidden;
+}
+
+.sobre-mi-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* CONTACTO INTRO */
+.contacto-intro {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
 @media (max-width: 768px) {
   .hero-title { font-size: clamp(36px, 11vw, 56px); }
   .hero-sub { font-size: 8px; }
@@ -259,6 +364,12 @@
   .primer-plato-img { order: 1; height: 50vh; }
   .primer-plato-body { font-size: 16px; line-height: 1.7; }
   .primer-plato-body p { margin-bottom: 18px; }
+  .servicios-grid { grid-template-columns: 1fr; }
+  .servicio-item { padding: 32px 24px; border-right: none; }
+  .clientes-body { padding: 0 24px 40px; }
+  .sobre-mi-content { grid-template-columns: 1fr; }
+  .sobre-mi-text { padding: 32px 24px; }
+  .sobre-mi-img { height: 50vh; }
   .contacto { grid-template-columns: 1fr; min-height: auto; }
   .contacto-form { padding: 48px 24px; }
   .contacto-img { height: 40vh; }

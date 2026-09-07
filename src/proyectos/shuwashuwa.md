@@ -2,6 +2,8 @@
 title: "Shuwa Shuwa"
 order: 11
 cover: "1CqWYeeGtiy2yXKwMa_divOdZQgsZvU6i"
+description: "Fotografía gastronómica para Shuwa Shuwa, restaurante de cocina japonesa contemporánea. Platos elaborados con producto de temporada y técnica nipona, capturados en un estilo que combina la elegancia del minimalismo japonés con la calidez del servicio. Once imágenes que reflejan la precisión en cada corte, la frescura del producto y la presentación cuidada que define esta propuesta."
+pageDescription: "Fotografía para Shuwa Shuwa, restaurante japonés contemporáneo. Cocina japonesa de autor por Jorge López Marín, fotógrafo gastronómico en Madrid."
 images:
   - "1G_gfsBdNJXWCxf6AHlqU8pBWfEGEaImr"
   - "19Y2nMjSWI7aHR1LIlrRevSI6x2iNDmbu"

@@ -8,15 +8,43 @@ extraCss: proyecto.css
   <h1 class="project-title">{{ title }}</h1>
 </div>
 
+{% if description %}
+<div class="project-description">
+  <p>{{ description }}</p>
+</div>
+{% endif %}
+
 {% set cols = images | masonryCols(3) %}
 <div id="grid" class="project-grid">
   {% for col in cols %}
   <div class="col">
     {% for imgId in col %}
     <div class="item fade-in">
-      <img src="{{ imgId | driveThumb('w800') }}" alt="Fotografía gastronómica de {{ title }} por Jorge López Marín" loading="lazy">
+      <img src="{{ imgId | driveThumb('w800') }}" alt="{% if alts and alts[loop.index0 + (loop.parent.loop.index0 * col.length)] %}{{ alts[loop.index0 + (loop.parent.loop.index0 * col.length)] }}{% else %}Fotografía gastronómica para {{ title }} — plato {{ loop.parent.loop.index0 * col.length + loop.index }}, proyecto por Jorge López Marín{% endif %}" loading="lazy">
     </div>
     {% endfor %}
   </div>
   {% endfor %}
 </div>
+
+{% if description2 %}
+<div class="project-description project-description--bottom">
+  <p>{{ description2 }}</p>
+</div>
+{% endif %}
+
+{# Related projects #}
+{% set related = collections.proyectos | rejectProject(page.fileSlug) | shuffle | first(3) %}
+{% if related.length > 0 %}
+<section class="related-projects">
+  <h2 class="related-title">Otros proyectos</h2>
+  <div class="related-grid">
+    {% for proyecto in related %}
+    <a class="related-item" href="{{ proyecto.url }}">
+      <img src="{{ proyecto.data.cover | driveThumb('w600') }}" alt="Fotografía gastronómica para {{ proyecto.data.title }} — Jorge López Marín" loading="lazy">
+      <span class="related-name">{{ proyecto.data.title }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

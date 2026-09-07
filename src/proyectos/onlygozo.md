@@ -2,6 +2,8 @@
 title: "Only Gozo"
 order: 9
 cover: "11ohSV2ovuhY49ELp2AvUrPfxol8tMuNQ"
+description: "Proyecto de fotografía gastronómica para Only Gozo. Una sesión extensa con 15 imágenes que recorre toda la oferta del local — platos principales, entrantes, postres y bebidas. Fotografía pensada para cubrir todas las necesidades de comunicación: desde la carta digital hasta las publicaciones en redes sociales, pasando por el material para plataformas de reservas."
+pageDescription: "Fotografía gastronómica para Only Gozo — sesión completa de carta y comunicación. Proyecto por Jorge López Marín, fotógrafo gastronómico en Madrid."
 images:
   - "1bNCnV9H4DqRY6ayZMd0xyTB_WWUNkxpE"
   - "1dmHBjtvUrdjUkc8L5b8LF2UD9iinbYWE"
