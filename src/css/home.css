@@ -249,9 +249,17 @@
 .contacto-img { overflow: hidden; }
 .contacto-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* SERVICIOS HOME */
+/* SERVICIOS HOME — visually hidden, visible to search engines */
 .servicios-home {
-  border-top: 0.5px solid var(--line);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .servicios-grid {
@@ -285,9 +293,17 @@
   opacity: 0.75;
 }
 
-/* CLIENTES HOME */
+/* CLIENTES HOME — visually hidden, visible to search engines */
 .clientes-home {
-  border-top: 0.5px solid var(--line);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .clientes-body {
@@ -310,9 +326,17 @@
   opacity: 1;
 }
 
-/* SOBRE MI HOME */
+/* SOBRE MI HOME — visually hidden, visible to search engines */
 .sobre-mi-home {
-  border-top: 0.5px solid var(--line);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .sobre-mi-content {
@@ -346,12 +370,17 @@
   display: block;
 }
 
-/* CONTACTO INTRO */
+/* CONTACTO INTRO — visually hidden, visible to search engines */
 .contacto-intro {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
-  margin-bottom: 32px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 768px) {

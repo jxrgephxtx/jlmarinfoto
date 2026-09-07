@@ -64,10 +64,17 @@ nav {
   color: var(--text);
 }
 
-/* Intro text */
+/* Intro text — visually hidden, visible to search engines */
 .proyectos-intro {
-  max-width: 780px;
-  padding: 0 48px 40px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .proyectos-intro p {
