@@ -1,0 +1,42 @@
+---
+layout: base.njk
+extraCss: video.css
+permalink: /video/
+seoTitle: "Vídeo Gastronómico — Jorge López Marín | Producción Audiovisual para Restaurantes en Madrid"
+pageDescription: "Vídeo gastronómico profesional en Madrid. Producción audiovisual para restaurantes, hoteles y marcas de alimentación. Jorge López Marín — vídeos que capturan la esencia de tu cocina."
+---
+
+<section class="video-hero">
+  <div class="video-hero-content fade-in">
+    <h1 class="video-hero-title">Vídeo Gastronómico</h1>
+    <p class="video-hero-sub">Producción audiovisual para restaurantes, hoteles y marcas</p>
+  </div>
+</section>
+
+{% if videoGallery.videos.length %}
+<section class="video-gallery">
+  <div class="video-gallery-grid">
+    {% for video in videoGallery.videos %}
+    <div class="video-gallery-item fade-in">
+      <div class="video-wrapper">
+        <iframe src="{{ video.id | driveEmbed }}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      {% if video.title %}
+      <p class="video-gallery-caption">{{ video.title }}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
+<section class="video-coming-soon">
+  <p class="video-coming-text fade-in">Próximamente</p>
+</section>
+{% endif %}
+
+<section class="video-cta">
+  <div class="video-cta-content fade-in">
+    <h2 class="video-cta-title">¿Necesitas vídeo para tu restaurante?</h2>
+    <a class="video-cta-link" href="/#contacto">Hablemos</a>
+  </div>
+</section>

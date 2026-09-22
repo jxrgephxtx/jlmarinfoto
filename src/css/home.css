@@ -16,6 +16,16 @@
   filter: brightness(0.65);
 }
 
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65);
+  z-index: 1;
+}
+
 .hero-content {
   text-align: center;
   position: relative;
@@ -67,22 +77,21 @@
 }
 
 .portfolio-grid {
-  position: relative;
-  width: 100%;
-  padding-bottom: 198.4375%;
-  height: 0;
+  column-count: 3;
+  column-gap: var(--gap, 6px);
+  padding: 0 var(--gap, 6px);
 }
 
 .portfolio-grid .item {
-  position: absolute;
+  break-inside: avoid;
+  margin-bottom: var(--gap, 6px);
   overflow: hidden;
   background: #111;
 }
 
 .portfolio-grid .item img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
   transition: transform 0.6s ease;
 }
@@ -393,6 +402,7 @@
   .primer-plato-img { order: 1; height: 50vh; }
   .primer-plato-body { font-size: 16px; line-height: 1.7; }
   .primer-plato-body p { margin-bottom: 18px; }
+  .portfolio-grid { column-count: 2; }
   .servicios-grid { grid-template-columns: 1fr; }
   .servicio-item { padding: 32px 24px; border-right: none; }
   .clientes-body { padding: 0 24px 40px; }
@@ -402,4 +412,8 @@
   .contacto { grid-template-columns: 1fr; min-height: auto; }
   .contacto-form { padding: 48px 24px; }
   .contacto-img { height: 40vh; }
+}
+
+@media (max-width: 480px) {
+  .portfolio-grid { column-count: 1; }
 }

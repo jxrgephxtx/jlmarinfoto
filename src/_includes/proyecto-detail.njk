@@ -33,6 +33,21 @@ extraCss: proyecto.css
 </div>
 {% endif %}
 
+{% if videos and videos.length %}
+<section class="project-videos">
+  <h2 class="project-videos-title">Vídeo</h2>
+  <div class="project-videos-grid">
+    {% for videoId in videos %}
+    <div class="video-item fade-in">
+      <div class="video-wrapper">
+        <iframe src="{{ videoId | driveEmbed }}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
 {# Related projects #}
 {% set related = collections.proyectos | rejectProject(page.fileSlug) | shuffle | first(3) %}
 {% if related.length > 0 %}

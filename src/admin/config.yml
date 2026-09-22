@@ -33,7 +33,76 @@ collections:
         widget: "list"
         label_singular: "Imagen"
         hint: "Añade los IDs de Google Drive de las fotos, en el orden que quieras."
+      - label: "Vídeos del proyecto (Google Drive IDs)"
+        name: "videos"
+        widget: "list"
+        label_singular: "Vídeo"
+        required: false
+        hint: "Opcional. Añade los IDs de Google Drive de los vídeos del proyecto."
 
 
   # ── PÁGINA PRINCIPAL ──────────────────────────
   - name: "configuracion"
+    label: "Configuración"
+    files:
+      - label: "Página principal"
+        name: "site"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Subtítulo", name: "subtitle", widget: "string" }
+          - { label: "URL del sitio", name: "siteUrl", widget: "string" }
+          - { label: "Descripción SEO", name: "description", widget: "text" }
+          - { label: "Ubicación", name: "location", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Instagram (usuario sin @)", name: "instagram", widget: "string" }
+          - { label: "Texto del botón hero", name: "heroText", widget: "string" }
+          - label: "Imagen hero (Google Drive ID)"
+            name: "heroBgImage"
+            widget: "string"
+            hint: "ID de Google Drive de la imagen de fondo del hero."
+          - label: "Vídeo hero (nombre del archivo)"
+            name: "heroVideo"
+            widget: "string"
+            required: false
+            hint: "Opcional. Nombre del archivo de vídeo en la carpeta /videos/ (ej: hero.mp4). Si se rellena, el vídeo reemplaza la imagen de fondo."
+          - label: "Título sección contacto"
+            name: "contactoTitle"
+            widget: "string"
+          - label: "Imagen contacto (Google Drive ID)"
+            name: "contactoImage"
+            widget: "string"
+          - label: "El primer plato que sirves"
+            name: "primerPlato"
+            widget: "object"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - label: "Párrafos"
+                name: "paragraphs"
+                widget: "list"
+                label_singular: "Párrafo"
+              - label: "Imagen (Google Drive ID)"
+                name: "image"
+                widget: "string"
+          - label: "Portfolio (imágenes)"
+            name: "portfolioImages"
+            widget: "list"
+            label_singular: "Imagen"
+            fields:
+              - label: "Google Drive ID"
+                name: "id"
+                widget: "string"
+                hint: "ID de Google Drive de la imagen."
+
+      - label: "Galería de Vídeo"
+        name: "videoGallery"
+        file: "src/_data/videoGallery.json"
+        fields:
+          - label: "Vídeos"
+            name: "videos"
+            widget: "list"
+            label_singular: "Vídeo"
+            fields:
+              - { label: "Google Drive ID", name: "id", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Orden", name: "order", widget: "number", required: false }

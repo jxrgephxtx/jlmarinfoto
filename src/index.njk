@@ -8,6 +8,11 @@ pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía pa
 
 <section class="hero">
   <div class="hero-bg" style="background-image: url('{{ site.heroBgImage | driveThumb("w1600") }}')"></div>
+  {% if site.heroVideo %}
+  <video class="hero-video" autoplay muted loop playsinline poster="{{ site.heroBgImage | driveThumb('w1600') }}">
+    <source src="/videos/{{ site.heroVideo }}" type="video/mp4">
+  </video>
+  {% endif %}
   <div class="hero-content">
     <h1 class="hero-title">Fotógrafo Gastronómico en Madrid</h1>
     <p class="hero-sub">Jorge López Marín · Fotografía para restaurantes, hoteles y marcas</p>
@@ -21,7 +26,7 @@ pageDescription: "Fotógrafo gastronómico profesional en Madrid. Fotografía pa
   </div>
   <div class="portfolio-grid">
     {% for img in site.portfolioImages %}
-    <div class="item fade-in" style="{{ img.style }}">
+    <div class="item fade-in">
       <img src="{{ img.id | driveThumb('w800') }}" alt="{{ img.alt or 'Fotografía gastronómica profesional — plato de restaurante en Madrid por Jorge López Marín' }}" loading="lazy">
     </div>
     {% endfor %}

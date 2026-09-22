@@ -3,6 +3,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("src/images");
+  eleventyConfig.addPassthroughCopy("src/videos");
 
   // Computed data: auto-generate pageDescription and ogImage for projects
   eleventyConfig.addGlobalData("eleventyComputed", {
@@ -67,6 +68,12 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("first", function(arr, n) {
     if (!arr) return [];
     return arr.slice(0, n || 3);
+  });
+
+  // Filter: Google Drive video embed URL
+  eleventyConfig.addFilter("driveEmbed", function(id) {
+    if (!id) return "";
+    return `https://drive.google.com/file/d/${id}/preview`;
   });
 
   return {
