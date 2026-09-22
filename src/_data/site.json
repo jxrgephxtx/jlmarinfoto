@@ -21,90 +21,6 @@
   },
   "portfolioImages": [
     {
-<<<<<<< Updated upstream
-      "id": "1KDKSnP86MI_nmSt5Meexg9VUoXuvdfvc",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1NlF1YnEOBlBv2x0PRzjc2nyRz4o1PlzO",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1J7xQh6e0OFWJDDMjqX84vSXqccirhQoR",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1f1lNpyl5TSEblN_e9EYO_GKMRVaOdDd2",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "13vgLN8DuUXmXqI3f5e0ijYNlMLB3r5-g",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1PTOrKTlTensAGZX3_X6ef0KyJx8tEeey",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "12M8W13iJ0EJ1lkZM1Vwq9oewC6HrkEAV",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "19mvtTZqgPfuEVxbG_ILDknR7WhF94YVV",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1gARpsZDeZ0cwvkQWbiV68Ou4L1RYh7q2",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "16BIMO-E6l_vwMvd5MUSuv6IsxL6jB-7k",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1wfzkhAmNR7kOtC7imb99BbJ4EGKdbxii",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1QV1ecjH1gWLwxksvdHmZyacNZ5O2fOfA",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1RYQMZJzZ-0RaQ_Wnqqp4PfXyzAgwu10M",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1wE_gdgxUPDkYIqwOaR9H0PZj2m2JyvoD",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "12KMgrZvL-5pSmQ_GlTvz1SVjqObk3eOV",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1G-yxCU6-Lzg7w1_WwLvi6NUAo3NtIHb7",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1fHvXLzXvudTMr-Iv0qP9y9MhUymN01Cc",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "16WmWt_dtl1r54g0CFuiPxHxvek0daoUj",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1i-pw54z3eE15KGB8KgNbG0AHa0RwYk20",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1ffPAaddtJ8DOP63NNNXUobHfTcHUnktO",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-    },
-    {
-      "id": "1gEw19h8EFVJczpYHWZq2VR9l697ibXVd",
-      "style": "left:0%;top:0%;width:30%;height:20%"
-=======
       "id": "1KDKSnP86MI_nmSt5Meexg9VUoXuvdfvc"
     },
     {
@@ -166,7 +82,6 @@
     },
     {
       "id": "1gEw19h8EFVJczpYHWZq2VR9l697ibXVd"
->>>>>>> Stashed changes
     }
   ]
 }
