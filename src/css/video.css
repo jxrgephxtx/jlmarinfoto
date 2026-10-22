@@ -25,18 +25,18 @@ nav {
 }
 
 .video-gallery {
-  padding: 0 48px 80px;
+  padding: 0 var(--gap, 6px) 80px;
 }
 
 .video-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap, 6px);
 }
 
 .video-wrapper {
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 177.78%;
   height: 0;
   overflow: hidden;
   background: #111;
@@ -56,7 +56,8 @@ nav {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-top: 12px;
+  margin-top: 8px;
+  padding: 0 4px;
 }
 
 .video-coming-soon {
@@ -99,7 +100,7 @@ nav {
 
 @media (max-width: 768px) {
   .video-hero { padding: 80px 24px 48px; }
-  .video-gallery { padding: 0 24px 48px; }
-  .video-gallery-grid { grid-template-columns: 1fr; gap: 24px; }
+  .video-gallery { padding: 0 var(--gap, 6px) 48px; }
+  .video-gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .video-cta { padding: 48px 24px; }
 }
