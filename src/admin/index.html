@@ -224,6 +224,25 @@
     }
     .portfolio-item:hover .remove-btn { opacity: 1; }
 
+    /* ── Video sections ── */
+    .video-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px; margin-top: 12px;
+    }
+    .video-item {
+      position: relative; background: var(--surface2); border-radius: 8px;
+      overflow: hidden; border: 1px solid var(--border); padding: 12px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .video-item .video-id { flex: 1; font-family: monospace; font-size: 12px; color: var(--text2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .video-item .remove-btn {
+      position: static; opacity: 1; background: none; color: var(--text2);
+      border: 1px solid var(--border); border-radius: 4px; width: 28px; height: 28px;
+      font-size: 14px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .video-item .remove-btn:hover { border-color: var(--red); color: var(--red); }
+
     /* ── Toast ── */
     .toast {
       position: fixed; bottom: 24px; right: 24px; padding: 12px 20px;
@@ -293,6 +312,7 @@
       <nav>
         <button id="nav-projects" class="active" onclick="showView('projects')">Proyectos</button>
         <button id="nav-home" onclick="showView('home')">Página principal</button>
+        <button id="nav-video" onclick="showView('video')">Galería Vídeo</button>
       </nav>
       <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
     </header>
@@ -344,6 +364,13 @@
         <p style="color:var(--text2);font-size:13px;margin-bottom:12px">Arrastra para reordenar. Haz clic en × para eliminar.</p>
         <div id="gallery-grid" class="gallery-grid"></div>
       </div>
+
+      <div class="gallery-section" style="margin-top:24px">
+        <h3>Vídeos <span class="count" id="videos-count"></span></h3>
+        <p style="color:var(--text2);font-size:13px;margin-bottom:12px">Añade Google Drive IDs de vídeos del proyecto. Opcional.</p>
+        <div id="videos-grid" class="video-grid"></div>
+        <button class="btn-secondary" style="margin-top:12px" onclick="addProjectVideo()">+ Añadir vídeo</button>
+      </div>
     </div>
 
     <!-- ── Home Editor ── -->
@@ -390,6 +417,11 @@
               <img id="home-heroBg-preview" src="">
             </div>
           </div>
+          <div class="form-group">
+            <label>Vídeo hero (nombre archivo, ej: hero.mp4)</label>
+            <input type="text" id="home-heroVideo" placeholder="Opcional. Nombre del archivo en /videos/">
+            <p style="color:var(--text2);font-size:11px;margin-top:4px">Si se rellena, el vídeo reemplaza la imagen de fondo del hero.</p>
+          </div>
         </div>
 
         <div class="home-section">
@@ -433,6 +465,17 @@
           <button class="btn-secondary" style="margin-top:12px" onclick="addPortfolioImage()">+ Añadir imagen</button>
         </div>
       </div>
+    </div>
+
+    <!-- ── Video Gallery Editor ── -->
+    <div id="view-video" class="view">
+      <div class="projects-header">
+        <h2>Galería de Vídeo</h2>
+        <button class="btn-primary" onclick="saveVideoGallery()">Guardar cambios</button>
+      </div>
+      <p style="color:var(--text2);font-size:13px;margin-bottom:16px">Gestiona los vídeos de la página /video/. Usa Google Drive IDs.</p>
+      <div id="video-gallery-list" class="home-sections"></div>
+      <button class="btn-secondary" style="margin-top:16px" onclick="addVideoGalleryItem()">+ Añadir vídeo</button>
     </div>
   </div>
 
@@ -519,7 +562,7 @@ async function initApp() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   showView('projects');
-  await Promise.all([loadProjects(), loadSiteData()]);
+  await Promise.all([loadProjects(), loadSiteData(), loadVideoGallery()]);
 }
 
 // Check stored token
@@ -635,6 +678,12 @@ function projectToMd(proj) {
   for (const img of (proj.images || [])) {
     md += `  - "${img}"\n`;
   }
+  if (proj.videos && proj.videos.length > 0) {
+    md += `videos:\n`;
+    for (const vid of proj.videos) {
+      md += `  - "${vid}"\n`;
+    }
+  }
   md += '---\n';
   return md;
 }
@@ -650,7 +699,7 @@ function renderProjects() {
            onerror="this.style.background='var(--surface2)'" alt="${p.title || ''}">
       <div class="info">
         <h3>${p.title || 'Sin título'}</h3>
-        <span class="meta">${(p.images || []).length} fotos</span>
+        <span class="meta">${(p.images || []).length} fotos${(p.videos && p.videos.length) ? ' · ' + p.videos.length + ' vídeos' : ''}</span>
       </div>
     </div>
   `).join('');
@@ -684,6 +733,7 @@ function editProject(index) {
   document.getElementById('btn-delete-project').style.display = proj._new ? 'none' : '';
 
   renderGallery();
+  renderProjectVideos();
   showView('editor');
 }
 
@@ -736,6 +786,39 @@ function addGalleryImage() {
     if (!projects[currentProject].images) projects[currentProject].images = [];
     projects[currentProject].images.push(val);
     renderGallery();
+    markDirty();
+  });
+}
+
+// ── Project Videos ──
+function renderProjectVideos() {
+  const proj = projects[currentProject];
+  const videos = proj.videos || [];
+  const grid = document.getElementById('videos-grid');
+  const count = document.getElementById('videos-count');
+
+  count.textContent = `(${videos.length} vídeos)`;
+
+  grid.innerHTML = videos.map((id, i) => `
+    <div class="video-item">
+      <span class="video-id" title="${id}">${id}</span>
+      <button class="remove-btn" onclick="removeProjectVideo(${i})">×</button>
+    </div>
+  `).join('');
+}
+
+function removeProjectVideo(i) {
+  projects[currentProject].videos.splice(i, 1);
+  renderProjectVideos();
+  markDirty();
+}
+
+function addProjectVideo() {
+  openModal('Añadir vídeo al proyecto', 'Google Drive ID del vídeo', (val) => {
+    if (!val) return;
+    if (!projects[currentProject].videos) projects[currentProject].videos = [];
+    projects[currentProject].videos.push(val);
+    renderProjectVideos();
     markDirty();
   });
 }
@@ -844,6 +927,7 @@ function renderHome() {
   document.getElementById('home-heroBg').value = siteData.heroBgImage || '';
   document.getElementById('home-contactoTitle').value = siteData.contactoTitle || '';
   document.getElementById('home-contactoImage').value = siteData.contactoImage || '';
+  document.getElementById('home-heroVideo').value = siteData.heroVideo || '';
 
   const pp = siteData.primerPlato || {};
   document.getElementById('home-ppTitle').value = pp.title || '';
@@ -895,10 +979,7 @@ function addPortfolioImage() {
   openModal('Añadir imagen al portfolio', 'Google Drive ID', (val) => {
     if (!val) return;
     if (!siteData.portfolioImages) siteData.portfolioImages = [];
-    siteData.portfolioImages.push({
-      id: val,
-      style: 'left:0%;top:0%;width:30%;height:20%'
-    });
+    siteData.portfolioImages.push({ id: val });
     renderPortfolioImages();
   });
 }
@@ -913,6 +994,7 @@ async function saveHome() {
   siteData.heroBgImage = document.getElementById('home-heroBg').value;
   siteData.contactoTitle = document.getElementById('home-contactoTitle').value;
   siteData.contactoImage = document.getElementById('home-contactoImage').value;
+  siteData.heroVideo = document.getElementById('home-heroVideo').value.trim() || undefined;
 
   const paragraphs = document.getElementById('home-ppParagraphs').value
     .split(/\n\n+/).filter(p => p.trim());
@@ -951,6 +1033,10 @@ function showView(name) {
   } else if (name === 'home') {
     document.getElementById('view-home').classList.add('active');
     document.getElementById('nav-home').classList.add('active');
+  } else if (name === 'video') {
+    document.getElementById('view-video').classList.add('active');
+    document.getElementById('nav-video').classList.add('active');
+    if (!videoGalleryData) loadVideoGallery();
   } else {
     document.getElementById('view-projects').classList.add('active');
     document.getElementById('nav-projects').classList.add('active');
@@ -1014,6 +1100,78 @@ function discardChanges() {
 function saveCurrentView() {
   if (currentProject !== null) saveProject();
   else saveAllProjectsOrder();
+}
+
+// ── Video Gallery ──
+let videoGalleryData = null;
+let videoGallerySha = null;
+
+async function loadVideoGallery() {
+  try {
+    const data = await ghGet('src/_data/videoGallery.json');
+    const content = decodeURIComponent(escape(atob(data.content)));
+    videoGalleryData = JSON.parse(content);
+    videoGallerySha = data.sha;
+    renderVideoGallery();
+  } catch(e) {
+    videoGalleryData = { videos: [] };
+    videoGallerySha = null;
+    renderVideoGallery();
+  }
+}
+
+function renderVideoGallery() {
+  if (!videoGalleryData) return;
+  const list = document.getElementById('video-gallery-list');
+  const videos = videoGalleryData.videos || [];
+
+  list.innerHTML = videos.map((v, i) => `
+    <div class="home-section" style="display:flex;align-items:center;gap:16px">
+      <div style="flex:1">
+        <div class="form-group" style="margin-bottom:8px">
+          <label>Título</label>
+          <input type="text" value="${v.title || ''}" onchange="videoGalleryData.videos[${i}].title=this.value">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Google Drive ID</label>
+          <input type="text" value="${v.id || ''}" onchange="videoGalleryData.videos[${i}].id=this.value" style="font-family:monospace;font-size:12px">
+        </div>
+      </div>
+      <button class="btn-danger" onclick="removeVideoGalleryItem(${i})">×</button>
+    </div>
+  `).join('');
+}
+
+function addVideoGalleryItem() {
+  if (!videoGalleryData) videoGalleryData = { videos: [] };
+  videoGalleryData.videos.push({ id: '', title: '', order: videoGalleryData.videos.length + 1 });
+  renderVideoGallery();
+}
+
+function removeVideoGalleryItem(i) {
+  videoGalleryData.videos.splice(i, 1);
+  renderVideoGallery();
+}
+
+async function saveVideoGallery() {
+  if (!videoGalleryData) return;
+  const content = JSON.stringify(videoGalleryData, null, 2) + '\n';
+
+  try {
+    const btn = document.querySelector('#view-video .btn-primary');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+
+    const result = await ghPut('src/_data/videoGallery.json', content, videoGallerySha,
+      'Actualizar galería de vídeo');
+    videoGallerySha = result.content.sha;
+
+    btn.disabled = false; btn.textContent = 'Guardar cambios';
+    toast('Galería de vídeo guardada', 'success');
+  } catch(e) {
+    const btn = document.querySelector('#view-video .btn-primary');
+    btn.disabled = false; btn.textContent = 'Guardar cambios';
+    toast('Error: ' + e.message, 'error');
+  }
 }
 
 // ── Toast ──
