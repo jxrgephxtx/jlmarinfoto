@@ -178,7 +178,7 @@ nav {
   .project-description { padding: 32px 24px 8px; }
   .project-description--bottom { padding: 8px 24px 32px; }
   .project-videos { padding: 40px 24px; }
-  .project-videos-grid { grid-template-columns: 1fr; }
+  .project-videos-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
   .related-projects { padding: 40px 24px; }
   .related-grid { grid-template-columns: repeat(2, 1fr); }
   .related-name { opacity: 1; }
